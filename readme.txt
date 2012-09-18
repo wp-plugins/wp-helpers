@@ -14,6 +14,7 @@ The missing settings page for WordPress.
 WordPress Helpers opens up the missing settings you wish were in WordPress.
 
 With WordPress Helpers you can easily:
+
 * Take control of the WordPress Admin Bar... including "Howdy".
 * Show ID's on edit screens for Posts, Pages, Categories, Tags, Users, Media, Custom Post Types and Custom Taxonomies.
 * Disable the theme switcher.
@@ -21,10 +22,12 @@ With WordPress Helpers you can easily:
 * Remove WordPress version, Feed Links, RSD Link, wlwmanifest and relational links for the posts adjacent to the current post, from your theme header.
 
 **WordPress Dashboard**
+
 * Hide Dashboard widgets.
 * Set the default Dashboard columns.
 
 **Writing**
+
 * Set the default Post editor (Visual or HTML).
 * Totally disable the Visual Editor.
 * Increase the height of the Excerpt box when writing a Post.
@@ -32,22 +35,27 @@ With WordPress Helpers you can easily:
 * Set the Post Per Page on the edit screen.
 
 **Reading**
+
 * Set Excerpt length by characters or words.
 * Remove the "Private" and "Protected" title prefixes.
 
 **Discussion**
+
 * Close Comments for older posts.
 * Remove auto linking in comments.
 
 **Widgets**
+
 * Remove any/all default WordPress widgets.
 * Run any shortcode in a widget.
 
 **User Profiles**
+
 * Remove the Admin color scheme option from the User Profiles.
 * Remove AIM, Yahoo IM, Jabber/Google Talk.
 
 **RSS Feeds**
+
 * Disable RSS Feeds.
 * Add Featured Images to your RSS Feed.
 
