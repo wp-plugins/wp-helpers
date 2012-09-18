@@ -3,7 +3,7 @@ Contributors: piklist
 Tags: piklist, settings, admin bar, dashboard widgets, widgets, visual editor, html editor, excerpts, excerpt length, autosave, private, protected, close comments, auto linking, AIM, Yahoo IM, Jabber, Google Talk, rss feeds, feeds
 Tested up to: 3.4.2
 Requires at least: 3.3.2
-Stable tag: 1.0.0
+Stable tag: 1.0.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -70,6 +70,10 @@ With WordPress Helpers you can easily:
 * Install and activate WordPress Helpers like any other plugin.
 
 == Changelog ==
+
+= 1.0.0 =
+* Removed some left over code.
+* Added a space for Howdy!
 
 = 1.0.0 =
 * Initial release!

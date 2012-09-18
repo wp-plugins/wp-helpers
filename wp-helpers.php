@@ -3,7 +3,7 @@
 Plugin Name: WordPress Helpers
 Plugin URI: http://piklist.com
 Description: Enhanced settings for WordPress. Located under <a href="tools.php?page=piklist_wp_helpers">TOOLS > HELPERS</a>
-Version: 1.0.0
+Version: 1.0.1
 Author: Piklist
 Author URI: http://piklist.com/
 Plugin Type: Piklist
@@ -338,7 +338,7 @@ class Piklist_WordPress_Helpers
     
     $wp_admin_bar->add_node(array(
       'id' => 'my-account'
-      ,'title' => str_replace('Howdy, ', self::$options['change_howdy'], $my_account->title)
+      ,'title' => str_replace('Howdy, ', self::$options['change_howdy'] . ' ', $my_account->title)
     ));
   }
 
