@@ -13,7 +13,7 @@ The missing settings page for WordPress.
 
 WordPress Helpers opens up the missing settings you wish were in WordPress.
 
-**This plugin requires <a href="http://piklist.com/">Piklist</a>.**
+**This plugin requires <a href="http://wordpress.org/extend/plugins/piklist/">Piklist</a>.**
 
 With WordPress Helpers you can easily:
 
@@ -67,7 +67,8 @@ With WordPress Helpers you can easily:
 **This plugin requires <a href="http://piklist.com/">Piklist</a>.**
 
 * Install and activate the <a href="http://wordpress.org/extend/plugins/piklist/">Piklist plugin</a>.
-* Install and activate WordPress Helpers like any other plugin.
+* Install and activate WordPress Helpers.
+* Enjoy!
 
 == Changelog ==
 
