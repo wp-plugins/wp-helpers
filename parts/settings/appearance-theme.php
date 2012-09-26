@@ -2,9 +2,18 @@
 /*
 Title: Theme
 Setting: piklist_wp_helpers
-Tab: Theme
-Order: 60
+Tab: Appearance
+Order: 70
 */
+
+  piklist('field', array(
+    'type' => 'checkbox'
+    ,'field' => 'enhanced_classes'
+    ,'label' => 'Body / Post Class'
+    ,'choices' => array(
+      'true' => 'Use enhanced Classes'
+    )
+  ));
 
   piklist('field', array(
     'type' => 'checkbox'

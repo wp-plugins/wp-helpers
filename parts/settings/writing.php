@@ -22,6 +22,16 @@ Order: 30
   ));
 
   piklist('field', array(
+    'type' => 'checkbox'
+    ,'field' => 'disable_visual_editor'
+    ,'label' => 'Disable Visual Editor'
+    ,'value' => 'false'
+    ,'choices' => array(
+      'true' => 'Only show HTML editor.'
+    )
+  ));
+
+  piklist('field', array(
     'type' => 'radio'
     ,'field' => 'default_editor'
     ,'label' => 'Set Default Editor'
@@ -39,15 +49,6 @@ Order: 30
     )
   ));
 
-  //TODO: Should be a conditional with above default_editor
-  piklist('field', array(
-    'type' => 'checkbox'
-    ,'field' => 'disable_visual_editor'
-    ,'label' => 'Disable Visual Editor'
-    ,'choices' => array(
-      'true' => 'Only show HTML editor.'
-    )
-  ));
 
   piklist('field', array(
     'type' => 'number'
@@ -64,6 +65,7 @@ Order: 30
     'type' => 'checkbox'
     ,'field' => 'disable_autosave'
     ,'label' => 'Disable Autosave'
+    ,'description' => '"Preview mode" depends on Autosave. Disabling Autosave will also disable Preview.'
     ,'choices' => array(
       'true' => 'Stop WordPress from autosaving posts.'
     )

@@ -2,8 +2,8 @@
 /*
 Title: Feeds
 Setting: piklist_wp_helpers
-Tab: Feeds
-Order: 90
+Tab: Reading
+Order: 40
 */
 
   piklist('field', array(

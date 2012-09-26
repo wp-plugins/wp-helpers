@@ -2,7 +2,7 @@
 /*
 Title: Widgets
 Setting: piklist_wp_helpers
-Tab: Widgets
+Tab: Appearance
 Order: 70
 */
 

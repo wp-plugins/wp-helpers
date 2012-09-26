@@ -3,7 +3,7 @@
 Plugin Name: WordPress Helpers
 Plugin URI: http://piklist.com
 Description: Enhanced settings for WordPress. Located under <a href="tools.php?page=piklist_wp_helpers">TOOLS > HELPERS</a>
-Version: 1.0.1
+Version: 1.1.0
 Author: Piklist
 Author URI: http://piklist.com/
 Plugin Type: Piklist
@@ -16,7 +16,7 @@ class Piklist_WordPress_Helpers
   private static $options = null;
   
   private static $filter_priority = 9999;
-  
+
   public static function init()
   {
     include_once('includes/class-piklist-checker.php');
@@ -35,15 +35,15 @@ class Piklist_WordPress_Helpers
   {    
     $pages[] = array(
       'page_title' => 'WordPress Helpers'
-      , 'menu_title' =>  'Helpers'
-      , 'sub_menu' => 'tools.php'
-      , 'capability' => 'manage_options'
-      , 'menu_slug' => 'piklist_wp_helpers'
-      , 'setting' => 'piklist_wp_helpers'
+      ,'menu_title' =>  'Helpers'
+      ,'sub_menu' => 'tools.php'
+      ,'capability' => 'manage_options'
+      ,'menu_slug' => 'piklist_wp_helpers'
+      ,'setting' => 'piklist_wp_helpers'
       ,'icon_url' => plugins_url('piklist/parts/img/piklist-icon.png') 
       ,'icon' => 'piklist-page'
-      , 'single_line' => false
-      , 'default_tab' => 'General'
+      ,'single_line' => false
+      ,'default_tab' => 'General'
     );
   
     return $pages;
@@ -127,6 +127,19 @@ class Piklist_WordPress_Helpers
             case 'remove_screen_options':
               add_filter('screen_options_show_screen', '__return_false', self::$filter_priority);
             break;
+
+            case 'comments_open_pages':
+              add_filter('comments_open', array('piklist_wordpress_helpers', 'comments_open_pages'), self::$filter_priority, 2);
+            break;
+
+            case 'enhanced_classes':
+              add_filter('body_class',array('piklist_wordpress_helpers', 'body_class'));
+              add_filter('post_class',array('piklist_wordpress_helpers', 'post_class'));
+            break;
+
+            case 'disable_self_ping':
+              add_action('pre_ping', array('piklist_wordpress_helpers', 'disable_self_ping'));
+            break;   
           }
         }
         else if (!empty($value))
@@ -190,14 +203,15 @@ class Piklist_WordPress_Helpers
             case 'show_admin_bar_components':
               add_action('wp_before_admin_bar_render', array('piklist_wordpress_helpers', 'remove_admin_bar_components'), self::$filter_priority);
             break;
-          
-            case 'comments_open':
-              add_filter('comments_open', array('piklist_wordpress_helpers', 'comments_open'), self::$filter_priority, 2);
-            break;
 
             case 'screen_layout_columns_dashboard':
-              add_filter('get_user_option_screen_layout_dashboard', array('piklist_wordpress_helpers', 'get_user_option_screen_layout_dashboard'), self::$filter_priority);
-              add_action('piklist_helpers_admin_css', array('piklist_wordpress_helpers', 'screen_layout_prefs'), self::$filter_priority);
+
+              if ($value != 'default')
+              {
+                add_filter('get_user_option_screen_layout_dashboard', array('piklist_wordpress_helpers', 'get_user_option_screen_layout_dashboard'), self::$filter_priority);
+                add_action('piklist_helpers_admin_css', array('piklist_wordpress_helpers', 'screen_layout_prefs'), self::$filter_priority);
+              }
+
             break;
 
             case 'screen_layout_columns_post':
@@ -351,7 +365,7 @@ class Piklist_WordPress_Helpers
 
     foreach ($value as $tag)
     {
-      $wp_admin_bar->remove_menu($tag);
+      $wp_admin_bar->remove_node($tag);
     }
   }
 
@@ -361,30 +375,28 @@ class Piklist_WordPress_Helpers
   }
 
   public static function screen_layout_prefs()
-  {
+  { 
+
+    //echo 'body.' . $screen_bodyclass . ' ' . '.screen-layout, body.' . $screen_bodyclass . ' ' . '.columns-prefs { display: none; }' . PHP_EOL;
     echo '.screen-layout, .columns-prefs { display: none; }' . PHP_EOL;
   }
 
-  public static function comments_open( $open, $post_id )
+  public static function comments_open_pages( $open, $post_id )
   {
-    if ('post' == get_post_type())
+    if ('page' == get_post_type())
     {
-      $post = get_post($post_id);
-      $post_time = (int) strtotime($post->post_date_gmt);
-      $days_old = '-' . self::$options['comments_open'] . ' day';
-      $days = (int) strtotime($days_old);
-
-      if ($days > $post_time)
-      {
-        return false;
-      }
+      return false;
     }
-    
     return $open;
   }
 
+  /* = Show ID's
+  -----------------------------------------------
+   */
+
   public static function show_ids() 
-  { 
+  {
+
     add_action('manage_users_custom_column', array('piklist_wordpress_helpers', 'edit_column_return'), self::$filter_priority, 3);
     add_filter('manage_users_columns', array('piklist_wordpress_helpers', 'edit_column_header'), self::$filter_priority, 2);
 
@@ -490,6 +502,226 @@ class Piklist_WordPress_Helpers
     unset($submenu['themes.php'][15]);
   }
 
+  public static function disable_self_ping(&$links)
+  {
+    // @ Credit http://blogwaffe.com/2006/10/04/wordpress-plugin-no-self-pings/
+    foreach ($links as $l => $link)
+      if (0 === strpos($link, get_option('home')))
+        unset($links[$l]);
+  }
+
+  /* = Body / Post Classses
+  -----------------------------------------------
+   * @credit http://themehybrid.com/
+   */
+  public static function body_class($classes)
+  {
+      global $post;
+
+      $extended_classes = array();
+      $tax_classes = array();
+      $date_classes = array();
+      $author_classes = array();
+      $browser_classes = array();
+
+      if (is_singular())
+      {
+        $extended_classes = array_merge($extended_classes, self::taxonomy_class($tax_classes));
+
+        $extended_classes = array_merge($extended_classes, self::date_class($date_classes));
+
+        if (has_post_thumbnail())
+        {
+          $extended_classes[] = 'has-post-thumbnail';
+        }
+
+        if (is_multi_author())
+        {
+          $extended_classes = array_merge($extended_classes, self::author_class($author_classes));
+        }
+      }
+      
+      if (is_archive())
+      {
+        if ( is_year() )
+        {
+          $extended_classes[] = 'year';
+        }
+
+        if ( is_month() )
+        {
+          $extended_classes[] = 'month';
+        }
+
+        if ( is_day() )
+        {
+          $extended_classes[] = 'day';
+        }
+          
+      }
+
+      if (is_user_logged_in())
+      {
+        global $wp_roles;
+        $current_user = wp_get_current_user();
+        $roles = $current_user->roles;
+        $role = array_shift($roles);
+        $extended_classes[] = ($wp_roles->role_names[$role]) ? translate_user_role($wp_roles->role_names[$role] ) : false;
+      }
+
+      if (is_multisite())
+      {
+         global $blog_id;
+         $sitename = str_replace(' ', '-' , strtolower( get_bloginfo('name') ) );
+         $extended_classes[] = 'multisite';
+         $extended_classes[] = 'site-' . $blog_id;
+         $extended_classes[] = 'site-' . $sitename;
+      }
+
+      $extended_classes = array_merge($extended_classes, self::browser_class($browser_classes));
+  
+      $classes = array_merge((array)$classes, (array)$extended_classes);
+      $classes = array_map('strtolower', $classes);
+      $classes = sanitize_html_class($classes);
+      $classes = array_unique($classes);
+
+      return $classes;
+  }
+
+  public static function post_class($classes = '', $post_id = null)
+  {
+
+      global $post, $wp_query;
+
+      $extended_classes = array();
+      $tax_classes = array();
+      $date_classes = array();
+      $author_classes = array();
+
+      if(!is_singular())
+      {
+        $extended_classes[] = (($wp_query->current_post+1) % 2) ? 'odd' : 'even';
+
+        $extended_classes = array_merge($extended_classes, self::date_class($date_classes));
+
+        $extended_classes = array_merge($extended_classes, self::taxonomy_class($tax_classes));
+
+        if (has_post_thumbnail())
+        {
+          $extended_classes[] = 'has-post-thumbnail';
+        }
+
+        if (is_multi_author())
+        {
+          $extended_classes = array_merge($extended_classes, self::author_class($author_classes));
+        }
+
+        if (post_type_supports($post->post_type, 'excerpt') && has_excerpt())
+        {
+          $extended_classes[] = 'has-excerpt';
+        }
+      
+      }
+
+
+      $classes = array_merge((array)$classes, (array)$extended_classes);
+      $classes = array_map('strtolower', $classes);
+      $classes = sanitize_html_class($classes);
+      $classes = array_unique($classes);
+
+
+      return $classes;
+
+  }
+
+  public static function browser_class()
+  {
+    // @Credit http://www.mattvarone.com/wordpress/browser-body-classes-function/
+    global $is_lynx, $is_gecko, $is_IE, $is_opera, $is_NS4, $is_safari, $is_chrome, $is_iphone;
+      if($is_lynx) $browser_classes[] = 'lynx';
+      elseif($is_gecko) $browser_classes[] = 'gecko';
+      elseif($is_opera) $browser_classes[] = 'opera';
+      elseif($is_NS4) $browser_classes[] = 'ns4';
+      elseif($is_safari) $browser_classes[] = 'safari';
+      elseif($is_chrome) $browser_classes[] = 'chrome';
+      elseif($is_IE)
+      {
+        $browser_classes[] = 'ie';
+        if(preg_match('/MSIE ([0-9]+)([a-zA-Z0-9.]+)/', $_SERVER['HTTP_USER_AGENT'], $browser_version))
+        {
+          $browser_classes[] = 'ie-' . $browser_version[1];
+        }
+      }
+      else
+      {
+        $browser_classes[] = 'browser-unknown';
+      }
+
+      if($is_iphone) $browser_classes[] = 'iphone';
+      
+      return $browser_classes;
+  }
+
+  public static function date_class()
+  {
+    $date_classes[] = get_the_date('F');
+    $date_classes[] = 'day-' . get_the_date('j');
+    $date_classes[] = get_the_date('Y');
+    $date_classes[] = 'time-' . get_the_date('a');
+
+    return $date_classes;
+  }
+
+  public static function author_class()
+  {
+    global $post;
+
+    $author_id = $post->post_author;
+    $author_classes[] = 'author-' . get_the_author_meta( 'user_nicename', $author_id );
+
+    return $author_classes;
+  }
+
+  public static function taxonomy_class()
+  {
+
+    global $post, $post_id;
+        
+      $post = get_post($post->ID);
+      $post_type = $post->post_type;
+
+      $taxonomies = get_object_taxonomies($post_type);
+        foreach ($taxonomies as $taxonomy)
+        {
+          $terms = get_the_terms( $post->ID, $taxonomy );
+          if (!empty($terms))
+          {
+            $output = array();
+
+            foreach ($terms as $term)
+            {
+              $tax_classes[] .= $term->taxonomy . '-' . $term->name ;
+
+              if (is_taxonomy_hierarchical( $term->taxonomy ))
+              {
+                 // Get Parents, Grandparents, etc.
+                $counter = 1;
+                while (!is_wp_error(get_term( $term->parent, $term->taxonomy))) :
+
+                  $term_parent = get_term( $term->parent, $term->taxonomy);
+                  $tax_classes[] .= $term->taxonomy . '-' . 'level-' . $counter . '-' . $term_parent->name;
+                  $tax_classes[] .= $term->taxonomy . '-hierarchical-' . $term_parent->name;
+                  $term = $term_parent;
+                  $counter++;
+
+                endwhile;
+              }
+            }              
+          }
+        }
+    return $tax_classes;
+  }
+
   public static function wp_die()
   {
     wp_die(__('Disabled'));
@@ -504,4 +736,7 @@ class Piklist_WordPress_Helpers
 <?php
   }
 }
+
+
+
 ?>

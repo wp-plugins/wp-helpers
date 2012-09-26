@@ -7,13 +7,11 @@ Order: 50
 */
 
   piklist('field', array(
-    'type' => 'number'
-    ,'field' => 'comments_open'
-    ,'label' => 'Close comments for old Posts'
-    ,'description' => 'days or older.'
-    ,'value' => ''
-    ,'attributes' => array(
-      'class' => 'small-text'
+    'type' => 'checkbox'
+    ,'field' => 'comments_open_pages'
+    ,'label' => 'Pages'
+    ,'choices' => array(
+      'true' => 'Do not allow comments on Pages'
     )
   ));
 

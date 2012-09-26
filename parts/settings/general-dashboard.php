@@ -2,8 +2,6 @@
 /*
 Title: Dashboard Widgets
 Setting: piklist_wp_helpers
-Tab: Dashboard
-Order: 20
 */
 
   piklist('field', array(
