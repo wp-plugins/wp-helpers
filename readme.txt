@@ -59,7 +59,6 @@ With WordPress Helpers you can easily:
 
 
 
-
 == Installation ==
 
 **This plugin requires <a href="http://piklist.com/">Piklist</a>.**
