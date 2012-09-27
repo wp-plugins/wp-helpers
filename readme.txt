@@ -1,5 +1,5 @@
 === WordPress Helpers ===
-Contributors: piklist
+Contributors: piklist, p51labs, sbruner
 Tags: piklist, settings, admin bar, dashboard widgets, widgets, visual editor, html editor, excerpts, excerpt length, autosave, private, protected, close comments, auto linking, AIM, Yahoo IM, Jabber, Google Talk, rss feeds, feeds
 Tested up to: 3.4.2
 Requires at least: 3.3.2
@@ -13,7 +13,7 @@ The missing settings page for WordPress.
 
 WordPress Helpers opens up the missing settings you wish were in WordPress.
 
-**This plugin requires <a href="http://piklist.com/">Piklist</a>.**
+**This plugin requires <a href="http://wordpress.org/extend/plugins/piklist/">Piklist</a>.**
 
 With WordPress Helpers you can easily:
 
