@@ -57,6 +57,17 @@ With WordPress Helpers you can easily:
 * Remove the Admin color scheme option from the User Profiles.
 * Remove AIM, Yahoo IM, Jabber/Google Talk.
 
+== Frequently Asked Questions ==
+
+= What does this plugin do? =
+WordPress Helpers provides access to all those settings you wish came with WordPress, providing you with an easy way to take control of WordPress.
+
+= Some of the settings don't seem to work =
+Though WordPress Helpers attempts to take control over your theme and plugins, sometimes it just can't.  If a setting in WordPress Helpers is not working, another plugin or your theme is overriding the setting.
+
+= I have an idea for another helper! =
+Awesome! We're always looking for new ideas. Please submit them on our <a href="http://piklist.com/support/forum/wordpress-helpers/">support forum</a>.
+
 
 
 == Installation ==
