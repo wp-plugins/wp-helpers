@@ -17,7 +17,7 @@ WordPress Helpers opens up the missing settings you wish were in WordPress.
 
 [Watch the WordPress Helpers Demo](http://www.youtube.com/embed/ZYSUDvodWxI):
 
-http://www.youtube.com/embed/ZYSUDvodWxI
+http://www.youtube.com/embed/ZYSUDvodWxI&hd=1
 
 With WordPress Helpers you can easily:
 
