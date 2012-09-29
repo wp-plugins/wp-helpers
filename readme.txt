@@ -15,9 +15,9 @@ WordPress Helpers opens up the missing settings you wish were in WordPress.
 
 **This plugin requires <a href="http://wordpress.org/extend/plugins/piklist/">Piklist</a>.**
 
-[Watch the WordPress Helpers Demo](http://www.youtube.com/embed/ZYSUDvodWxI):
+[Watch the WordPress Helpers Demo](http://www.youtube.com/watch?v=ZYSUDvodWxI&hd=1):
 
-http://www.youtube.com/embed/ZYSUDvodWxI&hd=1
+http://www.youtube.com/watch?v=ZYSUDvodWxI&hd=1
 
 With WordPress Helpers you can easily:
 
