@@ -73,7 +73,6 @@ Though WordPress Helpers attempts to take control over your theme and plugins, s
 Awesome! We're always looking for new ideas. Please submit them on our <a href="http://piklist.com/support/forum/wordpress-helpers/">support forum</a>.
 
 
-
 == Installation ==
 
 **This plugin requires <a href="http://piklist.com/">Piklist</a>.**
