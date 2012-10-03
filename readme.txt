@@ -113,6 +113,4 @@ Awesome! We're always looking for new ideas. Please submit them on our <a href="
 == Upgrade Notice ==
 
 = 1.2.0 =
-* New Feature: Disable upgrade notifications for WordPress Core, Plugins and Themes.
-* New Feature: Maintenance Mode.
-* New Feature: Enhanced class: JS detect in Body tag.
+New Features: Disable upgrade notifications for WordPress Core, Plugins and Themes | Maintenance Mode | Enhanced class: JS detect in Body tag.
