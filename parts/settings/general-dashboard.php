@@ -36,7 +36,7 @@ Setting: piklist_wp_helpers
           ,'dashboard_quick_press' => 'QuickPress'
 
         )
-        ,'columns' => 2
+        ,'columns' => 4
       )
       ,array(
         'type' => 'checkbox'
@@ -47,7 +47,7 @@ Setting: piklist_wp_helpers
           ,'dashboard_secondary' => 'WordPress News'
           ,'dashboard_plugins' => 'Plugins'
         )
-        ,'columns' => 3
+        ,'columns' => 4
       )
     )
   ));

@@ -23,7 +23,7 @@ Order: 70
           ,'WP_Widget_Meta' => 'Meta'
           ,'WP_Widget_Pages' => 'Page'
         )
-        ,'columns' => 2
+        ,'columns' => 4
       )
       ,array(
         'type' => 'checkbox'
@@ -36,7 +36,7 @@ Order: 70
           ,'WP_Widget_Tag_Cloud' => 'Tag Cloud'
           ,'WP_Widget_Text' => 'Text'
         )
-        ,'columns' => 2
+        ,'columns' => 4
       )
     )
   ));

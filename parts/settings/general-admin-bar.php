@@ -34,7 +34,7 @@ Setting: piklist_wp_helpers
     'type' => 'text'
     ,'field' => 'change_howdy'
     ,'label' => 'Admin Bar greeting'
-    ,'description' => 'Leave blank for default (Howdy,)'
+    ,'description' => 'Leave blank for default "Howdy,"'
     ,'attributes' => array(
       'class' => 'regular-text'
     )

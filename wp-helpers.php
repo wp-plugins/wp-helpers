@@ -3,7 +3,7 @@
 Plugin Name: WordPress Helpers
 Plugin URI: http://piklist.com
 Description: Enhanced settings for WordPress. Located under <a href="tools.php?page=piklist_wp_helpers">TOOLS > HELPERS</a>
-Version: 1.1.0
+Version: 1.2.0
 Author: Piklist
 Author URI: http://piklist.com/
 Plugin Type: Piklist
@@ -81,10 +81,6 @@ class Piklist_WordPress_Helpers
               self::remove_filter('admin_color_scheme_picker', 'admin_color_scheme_picker');
             break;
 
-            case 'menu_apperance_editor':
-              add_action('_admin_menu', array('piklist_wordpress_helpers', '_add_themes_utility_last'), self::$filter_priority);
-            break;
-
             case 'disable_feeds':
               add_action('do_feed', array('piklist_wordpress_helpers', 'wp_die'), self::$filter_priority);
               add_action('do_feed_rdf', array('piklist_wordpress_helpers', 'wp_die'), self::$filter_priority);
@@ -135,11 +131,18 @@ class Piklist_WordPress_Helpers
             case 'enhanced_classes':
               add_filter('body_class',array('piklist_wordpress_helpers', 'body_class'));
               add_filter('post_class',array('piklist_wordpress_helpers', 'post_class'));
+              add_action('wp_footer',array('piklist_wordpress_helpers', 'no_js'));
             break;
 
             case 'disable_self_ping':
               add_action('pre_ping', array('piklist_wordpress_helpers', 'disable_self_ping'));
-            break;   
+            break;
+
+            case 'maintenance_mode':
+              add_action('get_header', array('piklist_wordpress_helpers', 'maintenance_mode'));          
+              add_action('admin_notices', array('piklist_wordpress_helpers', 'maintenance_mode_warning'));
+
+            break;      
           }
         }
         else if (!empty($value))
@@ -224,6 +227,30 @@ class Piklist_WordPress_Helpers
               }
               
             break;
+
+            case 'disable_uprade_notifications':
+
+              if (current_user_can('manage_options')) break;
+
+               $value = is_array($value) ? $value : array($value);
+              
+                if(in_array('wordpress',$value))
+                {
+                  add_filter('pre_site_transient_update_core', '__return_null');
+                }
+
+                if(in_array('plugins',$value))
+                {
+                  add_filter('pre_site_transient_update_plugins', '__return_null');
+                }
+
+                if(in_array('themes',$value))
+                {
+                  add_filter('pre_site_transient_update_themes', '__return_null');
+                }
+            
+            break;
+
           }
         }
       }
@@ -312,11 +339,6 @@ class Piklist_WordPress_Helpers
     }
   }
 
-  public static function _add_themes_utility_last()
-  {
-    self::remove_filter('admin_menu', '_add_themes_utility_last');
-  }
-
   public static function unset_profile_fields($contactmethods)
   {
     $value = self::$options['profile_fields'];
@@ -345,9 +367,9 @@ class Piklist_WordPress_Helpers
     return $content;
   }
 
+  // @credit http://botcrawl.com/how-to-change-or-remove-the-howdy-greeting-message-on-the-wordpress-user-menu-bar/
   public static function change_howdy($wp_admin_bar)
   {
-    // @Credit http://botcrawl.com/how-to-change-or-remove-the-howdy-greeting-message-on-the-wordpress-user-menu-bar/
     $my_account = $wp_admin_bar->get_node('my-account');
     
     $wp_admin_bar->add_node(array(
@@ -376,8 +398,6 @@ class Piklist_WordPress_Helpers
 
   public static function screen_layout_prefs()
   { 
-
-    //echo 'body.' . $screen_bodyclass . ' ' . '.screen-layout, body.' . $screen_bodyclass . ' ' . '.columns-prefs { display: none; }' . PHP_EOL;
     echo '.screen-layout, .columns-prefs { display: none; }' . PHP_EOL;
   }
 
@@ -387,16 +407,12 @@ class Piklist_WordPress_Helpers
     {
       return false;
     }
+    
     return $open;
   }
-
-  /* = Show ID's
-  -----------------------------------------------
-   */
-
+  
   public static function show_ids() 
   {
-
     add_action('manage_users_custom_column', array('piklist_wordpress_helpers', 'edit_column_return'), self::$filter_priority, 3);
     add_filter('manage_users_columns', array('piklist_wordpress_helpers', 'edit_column_header'), self::$filter_priority, 2);
 
@@ -502,174 +518,210 @@ class Piklist_WordPress_Helpers
     unset($submenu['themes.php'][15]);
   }
 
+  // @credit http://blogwaffe.com/2006/10/04/wordpress-plugin-no-self-pings/
   public static function disable_self_ping(&$links)
   {
-    // @ Credit http://blogwaffe.com/2006/10/04/wordpress-plugin-no-self-pings/
-    foreach ($links as $l => $link)
-      if (0 === strpos($link, get_option('home')))
-        unset($links[$l]);
+    foreach ($links as $link => $link_data)
+    {
+      if (0 === strpos($link_data, get_option('home')))
+      {
+        unset($links[$link]);
+      }
+    }
   }
 
-  /* = Body / Post Classses
-  -----------------------------------------------
-   * @credit http://themehybrid.com/
-   */
+  // @credit http://skyje.com/wordpress-code-snippets/
+  public static function maintenance_mode()
+  {
+    if (!current_user_can('manage_options') || !is_user_logged_in())
+    {
+      wp_die(self::$options['maintenance_mode_message']);
+    }
+  }
+
+  public static function maintenance_mode_warning()
+  {
+    self::admin_notice('This site is in Maintenance Mode. <a href="/wp-admin/tools.php?page=piklist_wp_helpers">Deactivate when finished</a>.', false);
+  }
+
+  /* @credit http://themehybrid.com/ */
   public static function body_class($classes)
   {
-      global $post;
+    global $post, $wp_roles, $blog_id;
 
-      $extended_classes = array();
-      $tax_classes = array();
-      $date_classes = array();
-      $author_classes = array();
-      $browser_classes = array();
+    $extended_classes = array();
 
-      if (is_singular())
+    $extended_classes[] = 'no-js'; 
+
+    if (is_singular())
+    {
+      $extended_classes = array_merge($extended_classes, self::taxonomy_class($classes));
+      $extended_classes = array_merge($extended_classes, self::date_class($classes));
+
+      if (has_post_thumbnail())
       {
-        $extended_classes = array_merge($extended_classes, self::taxonomy_class($tax_classes));
-
-        $extended_classes = array_merge($extended_classes, self::date_class($date_classes));
-
-        if (has_post_thumbnail())
-        {
-          $extended_classes[] = 'has-post-thumbnail';
-        }
-
-        if (is_multi_author())
-        {
-          $extended_classes = array_merge($extended_classes, self::author_class($author_classes));
-        }
-      }
-      
-      if (is_archive())
-      {
-        if ( is_year() )
-        {
-          $extended_classes[] = 'year';
-        }
-
-        if ( is_month() )
-        {
-          $extended_classes[] = 'month';
-        }
-
-        if ( is_day() )
-        {
-          $extended_classes[] = 'day';
-        }
-          
+        $extended_classes[] = 'has-post-thumbnail';
       }
 
-      if (is_user_logged_in())
+      if (is_multi_author())
       {
-        global $wp_roles;
-        $current_user = wp_get_current_user();
-        $roles = $current_user->roles;
-        $role = array_shift($roles);
-        $extended_classes[] = ($wp_roles->role_names[$role]) ? translate_user_role($wp_roles->role_names[$role] ) : false;
+        $extended_classes = array_merge($extended_classes, self::author_class($classes));
+      }
+    }
+    
+    if (is_archive())
+    {
+      if (is_year())
+      {
+        $extended_classes[] = 'year';
       }
 
-      if (is_multisite())
+      if (is_month())
       {
-         global $blog_id;
-         $sitename = str_replace(' ', '-' , strtolower( get_bloginfo('name') ) );
-         $extended_classes[] = 'multisite';
-         $extended_classes[] = 'site-' . $blog_id;
-         $extended_classes[] = 'site-' . $sitename;
+        $extended_classes[] = 'month';
       }
 
-      $extended_classes = array_merge($extended_classes, self::browser_class($browser_classes));
-  
-      $classes = array_merge((array)$classes, (array)$extended_classes);
-      $classes = array_map('strtolower', $classes);
-      $classes = sanitize_html_class($classes);
-      $classes = array_unique($classes);
+      if (is_day())
+      {
+        $extended_classes[] = 'day';
+      }
+    }
 
-      return $classes;
+    if (is_user_logged_in())
+    {
+      $current_user = wp_get_current_user();
+      $roles = $current_user->roles;
+      $role = array_shift($roles);
+      $extended_classes[] = ($wp_roles->role_names[$role]) ? translate_user_role($wp_roles->role_names[$role]) : false;
+    }
+
+    if (is_multisite())
+    {       
+       $sitename = str_replace(' ', '-', strtolower(get_bloginfo('name')));
+       $extended_classes[] = 'multisite';
+       $extended_classes[] = 'site-' . $blog_id;
+       $extended_classes[] = 'site-' . $sitename;
+    }
+
+    $extended_classes = array_merge($extended_classes, self::browser_class($classes));
+
+    $classes = array_merge((array) $classes, (array) $extended_classes);
+    $classes = array_map('strtolower', $classes);
+    $classes = sanitize_html_class($classes);
+    $classes = array_unique($classes);
+
+    return $classes;
   }
 
   public static function post_class($classes = '', $post_id = null)
   {
+    global $post, $wp_query;
 
-      global $post, $wp_query;
+    $extended_classes = array();
 
-      $extended_classes = array();
-      $tax_classes = array();
-      $date_classes = array();
-      $author_classes = array();
+    if(!is_singular())
+    {
+      $extended_classes[] = (($wp_query->current_post + 1) % 2) ? 'odd' : 'even';
+    }
 
-      if(!is_singular())
-      {
-        $extended_classes[] = (($wp_query->current_post+1) % 2) ? 'odd' : 'even';
+    $extended_classes = array_merge($extended_classes, self::date_class($classes));
+    $extended_classes = array_merge($extended_classes, self::taxonomy_class($classes));
 
-        $extended_classes = array_merge($extended_classes, self::date_class($date_classes));
+    if (has_post_thumbnail())
+    {
+      $extended_classes[] = 'has-post-thumbnail';
+    }
 
-        $extended_classes = array_merge($extended_classes, self::taxonomy_class($tax_classes));
+    if (is_multi_author())
+    {
+      $extended_classes = array_merge($extended_classes, self::author_class($classes));
+    }
 
-        if (has_post_thumbnail())
-        {
-          $extended_classes[] = 'has-post-thumbnail';
-        }
+    if (post_type_supports($post->post_type, 'excerpt') && has_excerpt())
+    {
+      $extended_classes[] = 'has-excerpt';
+    }
 
-        if (is_multi_author())
-        {
-          $extended_classes = array_merge($extended_classes, self::author_class($author_classes));
-        }
+    $classes = array_merge((array) $classes, (array) $extended_classes);
+    $classes = array_map('strtolower', $classes);
+    $classes = sanitize_html_class($classes);
+    $classes = array_unique($classes);
 
-        if (post_type_supports($post->post_type, 'excerpt') && has_excerpt())
-        {
-          $extended_classes[] = 'has-excerpt';
-        }
-      
-      }
-
-
-      $classes = array_merge((array)$classes, (array)$extended_classes);
-      $classes = array_map('strtolower', $classes);
-      $classes = sanitize_html_class($classes);
-      $classes = array_unique($classes);
-
-
-      return $classes;
-
+    return $classes;
   }
 
+  /* = No-JS class
+  -----------------------------------------------
+   * Changes No-JS to JS, if JS detected
+   * @credit: http://wordpress.org/extend/plugins/genesis-js-no-js/
+   * @credit: http://core.svn.wordpress.org/trunk/wp-admin/admin-header.php
+   */
+  public static function no_js()
+  { ?>
+    <script type="text/javascript">
+      document.body.className = document.body.className.replace('no-js','js');
+    </script>
+  <?php
+  }
+
+  // @credit http://www.mattvarone.com/wordpress/browser-body-classes-function/
   public static function browser_class()
   {
-    // @Credit http://www.mattvarone.com/wordpress/browser-body-classes-function/
     global $is_lynx, $is_gecko, $is_IE, $is_opera, $is_NS4, $is_safari, $is_chrome, $is_iphone;
-      if($is_lynx) $browser_classes[] = 'lynx';
-      elseif($is_gecko) $browser_classes[] = 'gecko';
-      elseif($is_opera) $browser_classes[] = 'opera';
-      elseif($is_NS4) $browser_classes[] = 'ns4';
-      elseif($is_safari) $browser_classes[] = 'safari';
-      elseif($is_chrome) $browser_classes[] = 'chrome';
-      elseif($is_IE)
-      {
-        $browser_classes[] = 'ie';
-        if(preg_match('/MSIE ([0-9]+)([a-zA-Z0-9.]+)/', $_SERVER['HTTP_USER_AGENT'], $browser_version))
-        {
-          $browser_classes[] = 'ie-' . $browser_version[1];
-        }
-      }
-      else
-      {
-        $browser_classes[] = 'browser-unknown';
-      }
 
-      if($is_iphone) $browser_classes[] = 'iphone';
-      
-      return $browser_classes;
+    if ($is_lynx)
+    {
+      $classes[] = 'lynx';
+    }
+    elseif ($is_gecko)
+    {
+      $classes[] = 'gecko';
+    }
+    elseif ($is_opera)
+    {
+      $classes[] = 'opera';
+    }
+    elseif ($is_NS4)
+    {
+      $classes[] = 'ns4';
+    }
+    elseif ($is_safari)
+    {
+      $classes[] = 'safari';
+    }
+    elseif ($is_chrome)
+    {
+      $classes[] = 'chrome';
+    }
+    elseif ($is_IE)
+    {
+      $classes[] = 'ie';
+      if (preg_match('/MSIE ([0-9]+)([a-zA-Z0-9.]+)/', $_SERVER['HTTP_USER_AGENT'], $browser_version))
+      {
+        $classes[] = 'ie-' . $browser_version[1];
+      }
+    }
+    else
+    {
+      $classes[] = 'browser-unknown';
+    }
+
+    if ($is_iphone)
+    {
+      $classes[] = 'iphone';
+    }
+    
+    return $classes;
   }
 
   public static function date_class()
   {
-    $date_classes[] = get_the_date('F');
-    $date_classes[] = 'day-' . get_the_date('j');
-    $date_classes[] = get_the_date('Y');
-    $date_classes[] = 'time-' . get_the_date('a');
+    $classes[] = get_the_date('F');
+    $classes[] = 'day-' . get_the_date('j');
+    $classes[] = get_the_date('Y');
+    $classes[] = 'time-' . get_the_date('a');
 
-    return $date_classes;
+    return $classes;
   }
 
   public static function author_class()
@@ -677,49 +729,53 @@ class Piklist_WordPress_Helpers
     global $post;
 
     $author_id = $post->post_author;
-    $author_classes[] = 'author-' . get_the_author_meta( 'user_nicename', $author_id );
+    $classes[] = 'author-' . get_the_author_meta('user_nicename', $author_id);
 
-    return $author_classes;
+    return $classes;
   }
 
   public static function taxonomy_class()
   {
-
     global $post, $post_id;
         
-      $post = get_post($post->ID);
-      $post_type = $post->post_type;
+    $post = get_post($post->ID);
+    $post_type = $post->post_type;
 
-      $taxonomies = get_object_taxonomies($post_type);
-        foreach ($taxonomies as $taxonomy)
+    $taxonomies = get_object_taxonomies($post_type);
+    foreach ($taxonomies as $taxonomy)
+    {
+      $terms = get_the_terms($post->ID, $taxonomy);
+      if (!empty($terms))
+      {
+        $output = array();
+        foreach ($terms as $term)
         {
-          $terms = get_the_terms( $post->ID, $taxonomy );
-          if (!empty($terms))
+          $classes[] .= $term->taxonomy . '-' . $term->name ;
+          if (is_taxonomy_hierarchical($term->taxonomy))
           {
-            $output = array();
-
-            foreach ($terms as $term)
+            $counter = 1;
+            while (!is_wp_error(get_term($term->parent, $term->taxonomy)))
             {
-              $tax_classes[] .= $term->taxonomy . '-' . $term->name ;
-
-              if (is_taxonomy_hierarchical( $term->taxonomy ))
-              {
-                 // Get Parents, Grandparents, etc.
-                $counter = 1;
-                while (!is_wp_error(get_term( $term->parent, $term->taxonomy))) :
-
-                  $term_parent = get_term( $term->parent, $term->taxonomy);
-                  $tax_classes[] .= $term->taxonomy . '-' . 'level-' . $counter . '-' . $term_parent->name;
-                  $tax_classes[] .= $term->taxonomy . '-hierarchical-' . $term_parent->name;
-                  $term = $term_parent;
-                  $counter++;
-
-                endwhile;
-              }
-            }              
+              $term_parent = get_term($term->parent, $term->taxonomy);
+              $classes[] .= $term->taxonomy . '-' . 'level-' . $counter . '-' . $term_parent->name;
+              $classes[] .= $term->taxonomy . '-hierarchical-' . $term_parent->name;
+              $term = $term_parent;
+              $counter++;
+            }
           }
-        }
-    return $tax_classes;
+        }              
+      }
+    }
+
+    return $classes;
+  }
+
+  public static function admin_notice($message, $error = false)
+  {
+    piklist('shared/admin-notice', array(
+      'type' => $error ? 'error' : 'updated'
+      ,'message' => $message
+    ));
   }
 
   public static function wp_die()
@@ -736,7 +792,5 @@ class Piklist_WordPress_Helpers
 <?php
   }
 }
-
-
 
 ?>

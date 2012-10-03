@@ -9,9 +9,9 @@ Order: 70
   piklist('field', array(
     'type' => 'checkbox'
     ,'field' => 'enhanced_classes'
-    ,'label' => 'Body / Post Class'
+    ,'label' => 'Body/Post Classes'
     ,'choices' => array(
-      'true' => 'Use enhanced Classes'
+      'true' => 'Use enhanced classes.'
     )
   ));
 

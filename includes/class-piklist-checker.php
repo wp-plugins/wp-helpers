@@ -1,18 +1,14 @@
 <?php
 /*
  * Piklist Checker
- * Version: 0.1.0
+ * Version: 0.2.0
  *
  * Verifies that Piklist is installed and activated.
  * If not, plugin will be deactivated and user will be notifed.
  *
  * Developers:
- ** Copy this file to your plugin
- ** include_once before running any plugin code.
- ** Run the "check" function
- ** Example: include these two lines at the beginning of your plugin:
- *** include_once('path-to-checker-file/class-piklist-checker.php');
- *** if (!piklist_checker::check(__FILE__)) { return; }
+ ** Instructions on how to use this file in your plugin can be found here:
+ ** http://piklist.com/user-guide/docs/piklist-checker/
  *
  * Most recent version of this file can be found here:
  * http://s-plugins.wordpress.org/piklist/assets/class-piklist-checker.php
@@ -57,15 +53,34 @@ if (!class_exists('Piklist_Checker'))
     {
       ob_start();
     
-        $url = 'plugin-install.php?tab=search&s=piklist&plugin-search-input=Search+Plugins';
-        $get_pikist_url = (is_multisite() ? network_admin_url($url) : admin_url($url));
+        $url_install = 'plugin-install.php?tab=search&s=piklist&plugin-search-input=Search+Plugins';
+        $url_activate = 'plugins.php#piklist';
   ?>
     
         <h3><?php _e('The following plugin(s) have been deactivated.'); ?></h3>
       
         <p>
-          <?php _e('The plugin(s) below require the Piklist plugin to be installed and activated.'); ?>
-          <?php _e(sprintf('Please download and %1$s to run the plugin(s) or return to your %2$s without installation.', '<a href="' . $get_pikist_url . '">Install Piklist</a>', '<a href="' . admin_url() . '">Dashboard</a>')); ?>
+          <?php _e('The plugin(s) listed below require the Piklist plugin to be installed and activated.'); ?><br/>
+          <?php _e('You can:'); ?>
+          <ol>
+            <?php
+            $all_plugins = get_plugins();
+            if (array_key_exists('piklist/piklist.php', $all_plugins))
+            {
+              _e(sprintf('%1$s %2$s on this site.%3$s', '<li>', '<a href="' . admin_url() . $url_activate . '">Activate Piklist</a>','</li>'));
+              
+              if (is_multisite() && is_super_admin())
+              {
+                _e(sprintf('%1$s %2$s on all sites.%3$s', '<li>', '<a href="' . network_admin_url() . $url_activate . '">Network Activate Piklist</a>','</li>'));
+              }
+            }
+            else
+            {
+              _e(sprintf('%1$sDownload and %2$s to run the plugin(s).%3$s', '<li>', '<a href="' . network_admin_url() . $url_install . '">Install Piklist</a>', '</li>'));
+            }
+              _e(sprintf('%1$sReturn to your %2$s.%3$s', '<li>', '<a href="' . admin_url() . '">Dashboard</a>', '</li>'));
+            ?>
+          </ol>
         </p>
 
         <h4><?php _e('Plugin(s)'); ?></h4>

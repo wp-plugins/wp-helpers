@@ -3,7 +3,7 @@ Contributors: piklist, p51labs, sbruner
 Tags: piklist, settings, admin bar, dashboard widgets, widgets, visual editor, html editor, excerpts, excerpt length, autosave, private, protected, close comments, auto linking, AIM, Yahoo IM, Jabber, Google Talk, rss feeds, feeds
 Tested up to: 3.4.2
 Requires at least: 3.3.2
-Stable tag: 1.1.0
+Stable tag: 1.2.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -25,6 +25,7 @@ With WordPress Helpers you can easily:
 * Show ID's on edit screens for Posts, Pages, Categories, Tags, Users, Media, Custom Post Types and Custom Taxonomies.
 * Disable the theme switcher.
 * Remove the "Screen Options" tab.
+* Put your site into Maintenance Mode.
 * Hide Dashboard widgets.
 * Set the default Dashboard columns.
 
@@ -61,6 +62,11 @@ With WordPress Helpers you can easily:
 * Remove the Admin color scheme option from the User Profiles.
 * Remove AIM, Yahoo IM, Jabber/Google Talk.
 
+**System Information**
+* Server Environment.
+* WordPress Environment.
+* PHPInfo.
+
 == Frequently Asked Questions ==
 
 = What does this plugin do? =
@@ -72,7 +78,6 @@ Though WordPress Helpers attempts to take control over your theme and plugins, s
 = I have an idea for another helper! =
 Awesome! We're always looking for new ideas. Please submit them on our <a href="http://piklist.com/support/forum/wordpress-helpers/">support forum</a>.
 
-
 == Installation ==
 
 **This plugin requires <a href="http://piklist.com/">Piklist</a>.**
@@ -82,6 +87,11 @@ Awesome! We're always looking for new ideas. Please submit them on our <a href="
 
 == Changelog ==
 
+= 1.2.0 =
+* New Feature: Disable upgrade notifications for WordPress Core, Plugins and Themes.
+* New Feature: Maintenance Mode.
+* New Feature: Enhanced class: JS detect in Body tag.
+
 = 1.1.0 =
 * Reduced the number of tabs.
 * New Feature: Enhanced Body/Post classes.
@@ -90,7 +100,7 @@ Awesome! We're always looking for new ideas. Please submit them on our <a href="
 * Removed Feature: "Close comments for old Posts", since it's already an option in WordPress.
 * Bugfix: screen_layout_columns_dashboard should only trigger when default not selected.
 * Added some descriptions to settings.
-* Replaced depreciated remove_menu with remove_node.
+* Replaced remove_menu with remove_node.
 
 = 1.0.1 =
 * Removed some left over code.
@@ -99,3 +109,10 @@ Awesome! We're always looking for new ideas. Please submit them on our <a href="
 = 1.0.0 =
 * Initial release!
 
+
+== Upgrade Notice ==
+
+= 1.2.0 =
+* New Feature: Disable upgrade notifications for WordPress Core, Plugins and Themes.
+* New Feature: Maintenance Mode.
+* New Feature: Enhanced class: JS detect in Body tag.
