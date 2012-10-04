@@ -1,7 +1,7 @@
 <?php
 /*
  * Piklist Checker
- * Version: 0.2.0
+ * Version: 0.3.0
  *
  * Verifies that Piklist is installed and activated.
  * If not, plugin will be deactivated and user will be notifed.
@@ -27,6 +27,13 @@ if (!class_exists('Piklist_Checker'))
 
     public static function check($check_plugin)
     {
+      global $pagenow;
+
+      if ($pagenow == 'update.php')
+      {
+          return true;
+      }
+
       if (!function_exists('piklist'))
       {
         require_once(ABSPATH . 'wp-admin/includes/plugin.php');
@@ -57,7 +64,7 @@ if (!class_exists('Piklist_Checker'))
         $url_activate = 'plugins.php#piklist';
   ?>
     
-        <h3><?php _e('The following plugin(s) have been deactivated.'); ?></h3>
+        <h3><?php _e('Piklist Required.'); ?></h3>
       
         <p>
           <?php _e('The plugin(s) listed below require the Piklist plugin to be installed and activated.'); ?><br/>
@@ -83,7 +90,7 @@ if (!class_exists('Piklist_Checker'))
           </ol>
         </p>
 
-        <h4><?php _e('Plugin(s)'); ?></h4>
+        <h4><?php _e('The following plugin(s) have been deactivated.'); ?></h4>
 
         <ul>
           <?php foreach(self::$plugins as $plugin): $data = get_plugin_data($plugin); ?>

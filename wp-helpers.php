@@ -3,13 +3,14 @@
 Plugin Name: WordPress Helpers
 Plugin URI: http://piklist.com
 Description: Enhanced settings for WordPress. Located under <a href="tools.php?page=piklist_wp_helpers">TOOLS > HELPERS</a>
-Version: 1.2.0
+Version: 1.2.1
 Author: Piklist
 Author URI: http://piklist.com/
 Plugin Type: Piklist
 */
 
 add_action('init', array('piklist_wordpress_helpers', 'init'), -1);
+add_action('admin_init', array('piklist_wordpress_helpers', 'admin_init'), -1);
 
 class Piklist_WordPress_Helpers
 {
@@ -17,7 +18,7 @@ class Piklist_WordPress_Helpers
   
   private static $filter_priority = 9999;
 
-  public static function init()
+  public static function admin_init()
   {
     include_once('includes/class-piklist-checker.php');
    
@@ -25,7 +26,10 @@ class Piklist_WordPress_Helpers
     {
       return;
     }
-    
+  }
+
+  public static function init()
+  {
     add_filter('piklist_admin_pages', array('piklist_wordpress_helpers', 'admin_pages'));
     
     self::helpers();
