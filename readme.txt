@@ -25,6 +25,7 @@ With WordPress Helpers you can easily:
 * Show ID's on edit screens for Posts, Pages, Categories, Tags, Users, Media, Custom Post Types and Custom Taxonomies.
 * Disable the theme switcher.
 * Remove the "Screen Options" tab.
+* Disable Upgrade Notifications for WordPress, Themes and Plugins (individually).
 * Put your site into Maintenance Mode.
 * Hide Dashboard widgets.
 * Set the default Dashboard columns.
@@ -113,4 +114,4 @@ Awesome! We're always looking for new ideas. Please submit them on our <a href="
 == Upgrade Notice ==
 
 = 1.2.0 =
-New Features: Disable upgrade notifications for WordPress Core, Plugins and Themes | Maintenance Mode | Enhanced class: JS detect in Body tag.
+NEW FEATURES: Disable upgrade notifications, Maintenance Mode and and JS detect in Body tag.
