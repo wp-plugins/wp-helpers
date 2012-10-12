@@ -3,7 +3,7 @@
 Plugin Name: WordPress Helpers
 Plugin URI: http://piklist.com
 Description: Enhanced settings for WordPress. Located under <a href="tools.php?page=piklist_wp_helpers">TOOLS > HELPERS</a>
-Version: 1.2.1
+Version: 1.3.0
 Author: Piklist
 Author URI: http://piklist.com/
 Plugin Type: Piklist
@@ -109,6 +109,7 @@ class Piklist_WordPress_Helpers
 
             case 'show_ids':
               add_action('init', array('piklist_wordpress_helpers', 'show_ids'), self::$filter_priority);
+              add_action('piklist_helpers_admin_css', array('piklist_wordpress_helpers', 'column_id_width'), self::$filter_priority);
             break;
 
             case 'make_clickable':
@@ -253,6 +254,10 @@ class Piklist_WordPress_Helpers
                   add_filter('pre_site_transient_update_themes', '__return_null');
                 }
             
+            break;
+
+            case 'search_post_types':
+              add_filter('pre_get_posts', array('piklist_wordpress_helpers', 'set_search'));          
             break;
 
           }
@@ -504,6 +509,12 @@ class Piklist_WordPress_Helpers
     return $value;
   }
 
+  public static function column_id_width()
+  {
+    echo '.column-piklist_id { text-align: left; width: 4em; }' . PHP_EOL;
+  }
+
+
   public static function get_user_option_screen_layout_dashboard()
   {
     return self::$options['screen_layout_columns_dashboard'];
@@ -548,14 +559,15 @@ class Piklist_WordPress_Helpers
     self::admin_notice('This site is in Maintenance Mode. <a href="/wp-admin/tools.php?page=piklist_wp_helpers">Deactivate when finished</a>.', false);
   }
 
-  /* @credit http://themehybrid.com/ */
+  // @credit http://themehybrid.com/
   public static function body_class($classes)
   {
     global $post, $wp_roles, $blog_id;
 
     $extended_classes = array();
+    
+    $extended_classes[] = 'no-js';
 
-    $extended_classes[] = 'no-js'; 
 
     if (is_singular())
     {
@@ -607,15 +619,22 @@ class Piklist_WordPress_Helpers
        $extended_classes[] = 'site-' . $sitename;
     }
 
+    if (function_exists('bp_get_the_body_class'))
+    {
+      $extended_classes = array_merge($extended_classes, self::buddypress_class($classes));
+    }
+
     $extended_classes = array_merge($extended_classes, self::browser_class($classes));
 
     $classes = array_merge((array) $classes, (array) $extended_classes);
+
     $classes = array_map('strtolower', $classes);
     $classes = sanitize_html_class($classes);
     $classes = array_unique($classes);
 
     return $classes;
   }
+
 
   public static function post_class($classes = '', $post_id = null)
   {
@@ -654,12 +673,8 @@ class Piklist_WordPress_Helpers
     return $classes;
   }
 
-  /* = No-JS class
-  -----------------------------------------------
-   * Changes No-JS to JS, if JS detected
-   * @credit: http://wordpress.org/extend/plugins/genesis-js-no-js/
-   * @credit: http://core.svn.wordpress.org/trunk/wp-admin/admin-header.php
-   */
+  // @credit: http://wordpress.org/extend/plugins/genesis-js-no-js/
+  // @credit: http://core.svn.wordpress.org/trunk/wp-admin/admin-header.php
   public static function no_js()
   { ?>
     <script type="text/javascript">
@@ -672,6 +687,8 @@ class Piklist_WordPress_Helpers
   public static function browser_class()
   {
     global $is_lynx, $is_gecko, $is_IE, $is_opera, $is_NS4, $is_safari, $is_chrome, $is_iphone;
+
+    $classes = array();
 
     if ($is_lynx)
     {
@@ -720,6 +737,7 @@ class Piklist_WordPress_Helpers
 
   public static function date_class()
   {
+    $classes = array();
     $classes[] = get_the_date('F');
     $classes[] = 'day-' . get_the_date('j');
     $classes[] = get_the_date('Y');
@@ -732,6 +750,8 @@ class Piklist_WordPress_Helpers
   {
     global $post;
 
+    $classes = array();
+
     $author_id = $post->post_author;
     $classes[] = 'author-' . get_the_author_meta('user_nicename', $author_id);
 
@@ -741,6 +761,8 @@ class Piklist_WordPress_Helpers
   public static function taxonomy_class()
   {
     global $post, $post_id;
+
+    $classes = array();
         
     $post = get_post($post->ID);
     $post_type = $post->post_type;
@@ -772,6 +794,25 @@ class Piklist_WordPress_Helpers
     }
 
     return $classes;
+  }
+
+  public static function buddypress_class()
+  {
+    $classes = array();
+    $classes = bp_get_the_body_class();
+
+    return $classes;
+  }
+
+  public static function set_search($query)
+  {
+    if ($query->is_search)
+    {
+      $value = self::$options['search_post_types'];
+      $value = is_array($value) ? $value : array($value);
+      $query->set('post_type', $value);
+    }
+    return $query;
   }
 
   public static function admin_notice($message, $error = false)
