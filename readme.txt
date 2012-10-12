@@ -95,7 +95,7 @@ Awesome! We're always looking for new ideas. Please submit them on our <a href="
 * Bugfix: PHP errors on some enhanced classes.
 * Piklist Checker v0.4.0.
 
-= 1.2.1
+= 1.2.1 =
 * Bugfix: Piklist checker deactivates plugin on Piklist upgrade.
 
 = 1.2.0 =
