@@ -63,10 +63,6 @@ With WordPress Helpers you can easily:
 * Remove the Admin color scheme option from the User Profiles.
 * Remove AIM, Yahoo IM, Jabber/Google Talk.
 
-**System Information**
-* Server Environment.
-* WordPress Environment.
-* PHPInfo.
 
 == Frequently Asked Questions ==
 
