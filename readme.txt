@@ -3,7 +3,7 @@ Contributors: piklist, p51labs, sbruner
 Tags: piklist, settings, admin bar, dashboard widgets, widgets, visual editor, html editor, excerpts, excerpt length, autosave, private, protected, close comments, auto linking, AIM, Yahoo IM, Jabber, Google Talk, rss feeds, feeds, maintenance, maintenance mode, under construction
 Tested up to: 3.4.2
 Requires at least: 3.3.2
-Stable tag: 1.3.0
+Stable tag: 1.4.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -29,6 +29,7 @@ With WordPress Helpers you can easily:
 * Put your site into Maintenance Mode.
 * Hide Dashboard widgets.
 * Set the default Dashboard columns.
+* Display an notice to your users in the admin or on the front of your site.
 
 **Writing**
 
@@ -44,6 +45,8 @@ With WordPress Helpers you can easily:
 * Remove the "Private" and "Protected" title prefixes.
 * Disable RSS Feeds.
 * Add Featured Images to your RSS Feed.
+* Include/Exclude Post Types in Search.
+* Disable XML-RPC (WordPress 3.5 or later)
 
 **Discussion**
 
@@ -87,6 +90,11 @@ Awesome! We're always looking for new ideas. Please submit them on our <a href="
 * Install and activate WordPress Helpers like any other plugin.
 
 == Changelog ==
+
+= 1.4.0 =
+* New Feature: User notices.
+* New Feature: Disable XML-RPC in WordPress 3.5
+* Added Maintenance Mode Message to login screen.
 
 = 1.3.0 =
 * New Feature: Include/Exclude Post Types in Search.

@@ -15,4 +15,7 @@ Order: 50
     )
   ));
 
+  piklist('shared/built-with-piklist', array(
+    'location' => __FILE__
+  ));
 ?>

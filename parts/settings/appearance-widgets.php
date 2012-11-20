@@ -49,5 +49,8 @@ Order: 70
       'true' => 'Run any shortcode in a widget'
     )
   ));
-  
+
+  piklist('shared/built-with-piklist', array(
+    'location' => __FILE__
+  ));
 ?>

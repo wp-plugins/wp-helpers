@@ -46,5 +46,9 @@ Order: 40
     )
   ));
 
+  piklist('shared/built-with-piklist', array(
+    'location' => __FILE__
+  ));
+
 
 ?>

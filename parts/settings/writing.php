@@ -6,6 +6,8 @@ Tab: Writing
 Order: 30
 */
 
+global $wp_version;
+
   piklist('field', array(
     'type' => 'select'
     ,'field' => 'screen_layout_columns_post'
@@ -79,6 +81,25 @@ Order: 30
     ,'attributes' => array(
       'class' => 'small-text'
     )
+  ));
+
+if ($wp_version >= 3.5)
+{
+
+  piklist('field', array(
+    'type' => 'checkbox'
+    ,'field' => 'xml_rpc'
+    ,'label' => 'XML-RPC'
+    ,'choices' => array(
+      'true' => 'Disable XML RPC'
+    )
+  ));
+
+}
+
+
+  piklist('shared/built-with-piklist', array(
+    'location' => __FILE__
   ));
   
 ?>

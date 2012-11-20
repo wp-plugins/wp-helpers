@@ -40,4 +40,9 @@ Setting: piklist_wp_helpers
     )
   ));
 
+  piklist('shared/built-with-piklist', array(
+    'location' => __FILE__
+  ));
+
+
 ?>

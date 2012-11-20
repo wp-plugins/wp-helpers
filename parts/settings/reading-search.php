@@ -33,5 +33,9 @@ piklist('field', array(
    ,'choices' => $valid_post_types
 ));
 
+  piklist('shared/built-with-piklist', array(
+    'location' => __FILE__
+  ));
+
 
 ?>

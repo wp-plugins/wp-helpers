@@ -26,5 +26,9 @@ Order: 80
       ,'jabber' => 'Jabber/Google Talk'
     )
   ));
+
+  piklist('shared/built-with-piklist', array(
+    'location' => __FILE__
+  ));
   
 ?>

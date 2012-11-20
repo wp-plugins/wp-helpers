@@ -3,7 +3,7 @@
 Plugin Name: WordPress Helpers
 Plugin URI: http://piklist.com
 Description: Enhanced settings for WordPress. Located under <a href="tools.php?page=piklist_wp_helpers">TOOLS > HELPERS</a>
-Version: 1.3.0
+Version: 1.4.0
 Author: Piklist
 Author URI: http://piklist.com/
 Plugin Type: Piklist
@@ -139,15 +139,28 @@ class Piklist_WordPress_Helpers
               add_action('wp_footer',array('piklist_wordpress_helpers', 'no_js'));
             break;
 
-            case 'disable_self_ping':
-              add_action('pre_ping', array('piklist_wordpress_helpers', 'disable_self_ping'));
+            case 'xml_rpc':
+              add_filter('xmlrpc_enabled', '__return_false', self::$filter_priority);
+            break;
+
+            case 'disable_visual_editor':
+              add_filter('user_can_richedit', '__return_false', self::$filter_priority);
             break;
 
             case 'maintenance_mode':
               add_action('get_header', array('piklist_wordpress_helpers', 'maintenance_mode'));          
               add_action('admin_notices', array('piklist_wordpress_helpers', 'maintenance_mode_warning'));
+              add_filter('login_message', array('piklist_wordpress_helpers', 'maintenance_mode_warning'));
+            break;
 
-            break;      
+            case 'notice_admin':
+              add_action('admin_notices', array('piklist_wordpress_helpers', 'notice_admin'));
+            break;
+
+            case 'notice_front':
+              add_action( 'wp_enqueue_scripts', array('piklist_wordpress_helpers', 'helpers_css'));
+              add_action('wp_head', array('piklist_wordpress_helpers', 'notice_logged_in'),self::$filter_priority);
+            break;
           }
         }
         else if (!empty($value))
@@ -556,7 +569,35 @@ class Piklist_WordPress_Helpers
 
   public static function maintenance_mode_warning()
   {
-    self::admin_notice('This site is in Maintenance Mode. <a href="/wp-admin/tools.php?page=piklist_wp_helpers">Deactivate when finished</a>.', false);
+    if (self::is_login_page())
+    {
+      self::login_message('Maintenance Mode active.');
+    }
+    else
+    {
+      self::admin_notice('This site is in Maintenance Mode. <a href="/wp-admin/tools.php?page=piklist_wp_helpers">Deactivate when finished</a>.', false);
+    }
+  }
+
+  public static function notice_admin()
+  {
+      self::admin_notice(self::$options['admin_message'], false); 
+  }
+
+  public static function notice_logged_in()
+  {
+    $user_type = self::$options['notice_user_type'];
+    $message = self::$options['logged_in_front_message'];
+    $type = self::$options['notice_color'];
+
+    if ($user_type == 'logged_in')
+    {
+      if (!is_user_logged_in())
+      {
+        return;
+      } 
+    }
+    self::front_notice($message, $type);
   }
 
   // @credit http://themehybrid.com/
@@ -823,6 +864,47 @@ class Piklist_WordPress_Helpers
     ));
   }
 
+  public static function front_notice($message, $type = 'info')
+  { ?>
+
+    <div id="wp-helpers-notice" class="alert alert-<?php echo $type; ?>">
+
+      <?php echo $message; ?>
+        
+    </div>
+
+<?php
+  }
+
+  public static function login_message($message)
+  {
+    $login_message = '<p class="message">' . $message . '</p><br />';
+    echo $login_message;
+  }
+
+  public static function website_message($message)
+  {
+    $login_message = '<p class="message">' . $message . '</p><br />';
+    echo $login_message;
+  }
+
+  //@Credit http://wordpress.stackexchange.com/questions/12863/check-if-were-on-the-wp-login-page
+  public static function is_login_page()
+  {
+    global $pagenow;
+    if (in_array($GLOBALS['pagenow'], array('wp-login.php', 'wp-register.php')))
+    {
+      return IS_LOGIN_PAGE;
+    }
+    return false;
+  }
+
+  public static function helpers_css()
+  {
+    wp_register_style('wp-helpers', plugins_url('/parts/css/wp-helpers.css', __FILE__) );
+    wp_enqueue_style('wp-helpers');
+  }
+
   public static function wp_die()
   {
     wp_die(__('Disabled'));
@@ -831,11 +913,13 @@ class Piklist_WordPress_Helpers
   public static function admin_css()
   { 
 ?>
-    <style type="text/css">     
+    <!-- WordPress Helpers by Piklist -->   
+    <style type="text/css">  
       <?php do_action('piklist_helpers_admin_css'); ?>
     </style>
 <?php
   }
 }
+
 
 ?>
