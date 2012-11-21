@@ -1,9 +1,9 @@
 === WordPress Helpers ===
 Contributors: piklist, p51labs, sbruner
-Tags: piklist, settings, admin bar, dashboard widgets, widgets, visual editor, html editor, excerpts, excerpt length, autosave, private, protected, close comments, auto linking, AIM, Yahoo IM, Jabber, Google Talk, rss feeds, feeds, maintenance, maintenance mode, under construction
+Tags: piklist, settings, admin bar, dashboard widgets, widgets, visual editor, html editor, excerpts, excerpt length, autosave, howdy, private, protected, close comments, auto linking, AIM, Yahoo IM, Jabber, Google Talk, rss feeds, feeds, maintenance, maintenance mode, under construction
 Tested up to: 3.4.2
 Requires at least: 3.3.2
-Stable tag: 1.4.0
+Stable tag: 1.4.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -90,6 +90,10 @@ Awesome! We're always looking for new ideas. Please submit them on our <a href="
 * Install and activate WordPress Helpers like any other plugin.
 
 == Changelog ==
+
+= 1.4.1 =
+* Better conditional fields.
+* Fixed notices.
 
 = 1.4.0 =
 * New Feature: User notices.

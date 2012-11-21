@@ -24,12 +24,13 @@ global $wp_version;
   ));
 
   piklist('field', array(
-    'type' => 'checkbox'
+    'type' => 'select'
     ,'field' => 'disable_visual_editor'
-    ,'label' => 'Disable Visual Editor'
+    ,'label' => 'Editor'
     ,'value' => 'false'
     ,'choices' => array(
-      'true' => 'Only show HTML editor.'
+      'true' => 'Only show HTML editor'
+      ,'false' => 'Show Visual and HTML editors'
     )
   ));
 
@@ -46,7 +47,7 @@ global $wp_version;
     ,'conditions' => array(
       array(
         'field' => 'disable_visual_editor'
-        ,'value' => 'true'
+        ,'value' => 'false'
       )
     )
   ));

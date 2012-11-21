@@ -7,11 +7,13 @@ Order: 40
 */
 
   piklist('field', array(
-    'type' => 'checkbox'
+    'type' => 'select'
     ,'field' => 'disable_feeds'
-    ,'label' => 'Disable All Feeds'
+    ,'label' => 'All Feeds'
+    ,'value' => 'false'
     ,'choices' => array(
       'true' => 'Disable'
+      ,'false' => 'Enable'
     )
   ));
 
@@ -23,6 +25,12 @@ Order: 40
       ,'label' => 'Featured Image'
       ,'choices' => array(
         'true' => 'Add Featured Images to feed.'
+      )
+      ,'conditions' => array(
+        array(
+          'field' => 'disable_feeds'
+          ,'value' => 'false'
+        )
       )
     ));
   }

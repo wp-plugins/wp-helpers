@@ -1,7 +1,7 @@
 <?php
 /*
  * Piklist Checker
- * Version: 0.4.0
+ * Version: 0.4.1
  *
  * Verifies that Piklist is installed and activated.
  * If not, plugin will be deactivated and user will be notifed.
@@ -166,11 +166,14 @@ if (!class_exists('Piklist_Checker'))
   }
   
   piklist_checker::init();
-}
+
 
 /*
  * Changelog
  *
+  = 0.4.1 =
+ * Fixed Unterminated Comment Notice
+
  = 0.4.0 =
  * Multisite support
 
@@ -184,4 +187,6 @@ if (!class_exists('Piklist_Checker'))
  * Initial release
  
  */
+
+}
 ?>
