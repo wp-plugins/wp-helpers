@@ -3,10 +3,12 @@
 Plugin Name: WordPress Helpers
 Plugin URI: http://piklist.com
 Description: Enhanced settings for WordPress. Located under <a href="tools.php?page=piklist_wp_helpers">TOOLS > HELPERS</a>
-Version: 1.4.2
+Version: 1.4.3
 Author: Piklist
 Author URI: http://piklist.com/
 Plugin Type: Piklist
+Text Domain: wp-helpers
+Domain Path: /languages
 */
 
 add_action('init', array('piklist_wordpress_helpers', 'init'), -1);
@@ -436,12 +438,17 @@ class Piklist_WordPress_Helpers
   
   public static function show_ids() 
   {
+
+    add_filter('request', array('piklist_wordpress_helpers', 'column_orderby_id'));
+
     add_action('manage_users_custom_column', array('piklist_wordpress_helpers', 'edit_column_return'), self::$filter_priority, 3);
     add_filter('manage_users_columns', array('piklist_wordpress_helpers', 'edit_column_header'), self::$filter_priority, 2);
+    add_filter('manage_users_sortable_columns', array('piklist_wordpress_helpers', 'register_sortable_column'));
 
     add_action('manage_link_custom_column', array('piklist_wordpress_helpers', 'edit_column_echo'), self::$filter_priority, 2);
     add_filter('manage_link-manager_columns', array('piklist_wordpress_helpers', 'edit_column_header'), self::$filter_priority, 2);
-    
+    add_filter('manage_link-manager_sortable_columns', array('piklist_wordpress_helpers', 'register_sortable_column')); 
+
     $post_types = array(
       'posts' => 'post'
       , 'pages' => 'page'
@@ -452,7 +459,7 @@ class Piklist_WordPress_Helpers
     {
       add_action('manage_' . $post_type . '_custom_column', array('piklist_wordpress_helpers', 'edit_column_echo'), self::$filter_priority, 2);
       add_filter('manage_' . $post_type . '_columns', array('piklist_wordpress_helpers', 'edit_column_header'), self::$filter_priority, 2);
-      add_filter('manage_edit-' .  $value . '_sortable_columns', array('piklist_wordpress_helpers', 'edit_column_header'), self::$filter_priority);
+      add_filter('manage_edit-' .  $value . '_sortable_columns', array('piklist_wordpress_helpers', 'register_sortable_column'), self::$filter_priority);
     }
     
     if ($custom_post_types = get_post_types(array('_builtin' => false)))
@@ -461,7 +468,7 @@ class Piklist_WordPress_Helpers
       {
         add_action('manage_' . $custom_post_type . '_custom_column', array('piklist_wordpress_helpers', 'edit_column_echo'), self::$filter_priority, 2);
         add_filter('manage_' . $custom_post_type . '_columns', array('piklist_wordpress_helpers', 'edit_column_header'), self::$filter_priority, 2);
-        add_filter('manage_edit-' .  $custom_post_type . '_sortable_columns', array('piklist_wordpress_helpers', 'edit_column_header'), self::$filter_priority);
+        add_filter('manage_edit-' .  $custom_post_type . '_sortable_columns', array('piklist_wordpress_helpers', 'register_sortable_column'), self::$filter_priority);
       }
     }
 
@@ -474,7 +481,7 @@ class Piklist_WordPress_Helpers
     {
       add_action('manage_' . $taxonomy_builtin . '_custom_column', array('piklist_wordpress_helpers', 'edit_column_return'), self::$filter_priority, 3);
       add_filter('manage_edit-' . $taxonomy_builtin . '_columns', array('piklist_wordpress_helpers', 'edit_column_header'), self::$filter_priority, 2);
-      add_filter('manage_edit-' . $taxonomy_builtin . '_sortable_columns', array('piklist_wordpress_helpers', 'edit_column_header'), self::$filter_priority);
+      add_filter('manage_edit-' . $taxonomy_builtin . '_sortable_columns', array('piklist_wordpress_helpers', 'register_sortable_column'), self::$filter_priority);
     }
     
     if ($custom_taxonomies = get_taxonomies(array('_builtin' => false)))
@@ -483,10 +490,33 @@ class Piklist_WordPress_Helpers
       {
         add_action('manage_' . $custom_taxonomy . '_custom_column', array('piklist_wordpress_helpers', 'edit_column_return'), self::$filter_priority, 3);
         add_filter('manage_edit-' . $custom_taxonomy . '_columns', array('piklist_wordpress_helpers', 'edit_column_header'), self::$filter_priority, 2);
-        add_filter('manage_edit-' . $custom_taxonomy . '_sortable_columns', array('piklist_wordpress_helpers', 'edit_column_header'), self::$filter_priority);
+        add_filter('manage_edit-' . $custom_taxonomy . '_sortable_columns', array('piklist_wordpress_helpers', 'register_sortable_column'), self::$filter_priority);
       }
     }
+
+
+
   }
+
+  public static function column_orderby_id($vars)
+  {
+    if (isset($vars['orderby']) && 'piklist_id' == $vars['orderby'])
+    {
+      $vars = array_merge($vars, array(
+                          'meta_key' => 'piklist_id',
+                          'orderby' => 'meta_value_num'
+                          ));
+    }
+  return $vars;
+  }
+
+  public static function register_sortable_column($columns)
+  {
+    $columns['piklist_id'] = 'ID';
+   
+    return $columns;
+  }
+
 
   public static function edit_column_header($defaults)
   {
@@ -848,7 +878,11 @@ class Piklist_WordPress_Helpers
 
   public static function set_search($query)
   {
-    if ($query->is_search)
+    if (is_admin)
+    {
+      return;
+    }
+    elseif ($query->is_search)
     {
       $value = self::$options['search_post_types'];
       $value = is_array($value) ? $value : array($value);
@@ -922,5 +956,31 @@ class Piklist_WordPress_Helpers
   }
 }
 
+
+
+
+
+
+
+function price_column_register_sortable( $columns ) {
+  $columns['piklist_id'] = 'ID';
+ 
+  return $columns;
+}
+//add_filter( 'manage_users_sortable_columns', 'price_column_register_sortable' );
+
+
+
+function price_column_orderby( $vars ) {
+  if ( isset( $vars['orderby'] ) && 'piklist_id' == $vars['orderby'] ) {
+    $vars = array_merge( $vars, array(
+      'meta_key' => 'piklist_id',
+      'orderby' => 'meta_value_num'
+    ) );
+  }
+ 
+  return $vars;
+}
+add_filter( 'request', 'price_column_orderby' );
 
 ?>
