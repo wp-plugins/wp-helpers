@@ -29,8 +29,8 @@ global $wp_version;
     ,'label' => 'Editor'
     ,'value' => 'false'
     ,'choices' => array(
-      'true' => 'Only show HTML editor'
-      ,'false' => 'Show Visual and HTML editors'
+      'true' => (($wp_version >= 3.5) ? 'Only show Text editor' : 'Only show HTML editor')
+      ,'false' => (($wp_version >= 3.5) ? 'Show Visual and Text editors' : 'Show Visual and HTML editors')
     )
   ));
 
@@ -51,7 +51,6 @@ global $wp_version;
       )
     )
   ));
-
 
   piklist('field', array(
     'type' => 'number'
@@ -98,9 +97,5 @@ if ($wp_version >= 3.5)
 
 }
 
-
-  piklist('shared/built-with-piklist', array(
-    'location' => __FILE__
-  ));
   
 ?>

@@ -27,8 +27,5 @@ Order: 80
     )
   ));
 
-  piklist('shared/built-with-piklist', array(
-    'location' => __FILE__
-  ));
   
 ?>

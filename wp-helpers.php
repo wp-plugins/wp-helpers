@@ -3,7 +3,7 @@
 Plugin Name: WordPress Helpers
 Plugin URI: http://piklist.com
 Description: Enhanced settings for WordPress. Located under <a href="tools.php?page=piklist_wp_helpers">TOOLS > HELPERS</a>
-Version: 1.4.3
+Version: 1.4.4
 Author: Piklist
 Author URI: http://piklist.com/
 Plugin Type: Piklist
@@ -162,6 +162,10 @@ class Piklist_WordPress_Helpers
             case 'notice_front':
               add_action( 'wp_enqueue_scripts', array('piklist_wordpress_helpers', 'helpers_css'));
               add_action('wp_head', array('piklist_wordpress_helpers', 'notice_logged_in'),self::$filter_priority);
+            break;
+
+            case 'link_manager':
+              add_filter( 'pre_option_link_manager_enabled', '__return_true', self::$filter_priority);
             break;
           }
         }
@@ -500,12 +504,15 @@ class Piklist_WordPress_Helpers
 
   public static function column_orderby_id($vars)
   {
-    if (isset($vars['orderby']) && 'piklist_id' == $vars['orderby'])
+    if (is_admin())
     {
-      $vars = array_merge($vars, array(
-                          'meta_key' => 'piklist_id',
-                          'orderby' => 'meta_value_num'
-                          ));
+      if (isset($vars['orderby']) && 'piklist_id' == $vars['orderby'])
+      {
+        $vars = array_merge($vars, array(
+                            'meta_key' => 'piklist_id',
+                            'orderby' => 'meta_value_num'
+                            ));
+      }
     }
   return $vars;
   }
@@ -518,25 +525,23 @@ class Piklist_WordPress_Helpers
   }
 
 
-  public static function edit_column_header($defaults)
+  public static function edit_column_header($columns)
   {
-    return array_slice($defaults, 0, 1, true) +
-      array('piklist_id' => __('ID')) +
-      array_slice($defaults, 1, count($defaults) - 1, true);
+    $column_id = array('piklist_id' =>  __('ID', 'piklist'));
+
+    $columns = array_slice( $columns, 0, 1, true ) + $column_id + array_slice( $columns, 1, NULL, true );
+
+    return $columns;
   }
 
-  public static function edit_column_echo($column, $value)
+  public static function edit_column_echo($column, $post_id)
   {
     switch ($column)
     {
       case 'piklist_id':
-        
-        $value = (int) $value;
-      
+        echo $post_id;
       break;
     }
-    
-    echo $value;
   }
 
   public static function edit_column_return($value, $column, $value)
@@ -956,31 +961,5 @@ class Piklist_WordPress_Helpers
   }
 }
 
-
-
-
-
-
-
-function price_column_register_sortable( $columns ) {
-  $columns['piklist_id'] = 'ID';
- 
-  return $columns;
-}
-//add_filter( 'manage_users_sortable_columns', 'price_column_register_sortable' );
-
-
-
-function price_column_orderby( $vars ) {
-  if ( isset( $vars['orderby'] ) && 'piklist_id' == $vars['orderby'] ) {
-    $vars = array_merge( $vars, array(
-      'meta_key' => 'piklist_id',
-      'orderby' => 'meta_value_num'
-    ) );
-  }
- 
-  return $vars;
-}
-add_filter( 'request', 'price_column_orderby' );
 
 ?>

@@ -77,8 +77,5 @@ Order: 10
     )
   ));
 
-  piklist('shared/built-with-piklist', array(
-    'location' => __FILE__
-  ));
 
 ?>

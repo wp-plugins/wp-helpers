@@ -70,10 +70,19 @@ Order: 10
     )
   ));
 
+  if ($wp_version >= 3.5)
+  {
 
+    piklist('field', array(
+      'type' => 'checkbox'
+      ,'field' => 'link_manager'
+      ,'label' => 'Link Manager'
+      ,'choices' => array(
+        'true' => 'Enable'
+      )
+    ));
 
-  piklist('shared/built-with-piklist', array(
-    'location' => __FILE__
-  ));
+  }
+
 
 ?>
