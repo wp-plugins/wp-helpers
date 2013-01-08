@@ -70,10 +70,6 @@ With WordPress Helpers you can easily:
 * Redirect vistors to the home page after login.
 * Display an notice to your users in the admin or on the front of your site.
 
-**System Information**
-* Server Environment.
-* WordPress Environment.
-* PHPInfo.
 
 == Frequently Asked Questions ==
 
