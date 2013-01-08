@@ -97,7 +97,7 @@ Awesome! We're always looking for new ideas. Please submit them on our <a href="
 * NEW: Redirect to Home Page after user logs in.
 * ENHANCED: Moved settings sections around for better access.
 * FIX: Excerpt CSS only triggers on post pages.
-* FIX: Link to disable Maintenance Mode correctly terms admin path.
+* FIX: Link to disable Maintenance Mode is correct.
 
 = 1.4.4 =
 * NEW FEATURE: Enable Link Manager (WordPress 3.5+ only)
