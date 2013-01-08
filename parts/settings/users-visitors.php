@@ -1,20 +1,59 @@
 <?php
 /*
-Title: Notices
+Title: Visitors
 Setting: piklist_wp_helpers
-Order: 10
+Tab: Users
+Order: 610
 */
 
 ?>
 
-  <p><strong>Use notices to communicate with your users.</strong></p>
+  <p><strong>Interact with your visitors</strong></p>
 
 <?php
+
+  piklist('field', array(
+    'type' => 'checkbox'
+    ,'field' => 'maintenance_mode'
+    ,'label' => 'Maintenance Mode'
+    ,'choices' => array(
+      'true' => 'Disable site and show message:[field=maintenance_mode_message]'
+    )
+    ,'fields' => array(
+      array(
+        'type' => 'text'
+        ,'field' => 'maintenance_mode_message'
+        ,'value' => 'We are currently down for Maintenance.'
+        ,'embed' => true
+        ,'attributes' => array(
+          'class' => 'regular-text'
+        )
+      )
+    )
+  ));
+
+  piklist('field', array(
+    'type' => 'checkbox'
+    ,'label' => 'Private Website'
+    ,'field' => 'private_site'
+    ,'choices' => array(
+      'true' => 'Only logged in users can see Website.'
+    )
+  ));
+
+  piklist('field', array(
+    'type' => 'checkbox'
+    ,'label' => 'Redirect Home'
+    ,'field' => 'redirect_to_home'
+    ,'choices' => array(
+      'true' => 'Redirect users to Home Page after login.'
+    )
+  ));
   
   piklist('field', array(
     'type' => 'checkbox'
     ,'field' => 'notice_admin'
-    ,'label' => 'In Admin'
+    ,'label' => 'In Admin Message'
     ,'description' => 'Displays in WordPress admin.'
     ,'choices' => array(
       'true' => 'Message:[field=admin_message]'
@@ -35,7 +74,7 @@ Order: 10
   piklist('field', array(
     'type' => 'checkbox'
     ,'field' => 'notice_front'
-    ,'label' => 'Website'
+    ,'label' => 'Frontend Message'
     ,'description' => 'Displays on front of website.'
     ,'choices' => array(
       'true' => 'Message:[field=logged_in_front_message][field=notice_user_type][field=notice_color]'
