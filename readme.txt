@@ -65,6 +65,7 @@ With WordPress Helpers you can easily:
 * Remove AIM, Yahoo IM, Jabber/Google Talk.
 
 **Site Visitors**
+
 * Put your site into Maintenance Mode.
 * Create a Private website.
 * Redirect vistors to the home page after login.
