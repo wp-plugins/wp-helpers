@@ -26,10 +26,8 @@ With WordPress Helpers you can easily:
 * Disable the theme switcher.
 * Remove the "Screen Options" tab.
 * Disable Upgrade Notifications for WordPress, Themes and Plugins (individually).
-* Put your site into Maintenance Mode.
 * Hide Dashboard widgets.
 * Set the default Dashboard columns.
-* Display an notice to your users in the admin or on the front of your site.
 
 **Writing**
 
@@ -65,6 +63,12 @@ With WordPress Helpers you can easily:
 
 * Remove the Admin color scheme option from the User Profiles.
 * Remove AIM, Yahoo IM, Jabber/Google Talk.
+
+**Site Visitors**
+* Put your site into Maintenance Mode.
+* Create a Private website.
+* Redirect vistors to the home page after login.
+* Display an notice to your users in the admin or on the front of your site.
 
 **System Information**
 * Server Environment.
