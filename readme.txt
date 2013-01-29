@@ -94,7 +94,7 @@ Awesome! We're always looking for new ideas. Please submit them on our <a href="
 == Changelog ==
 
 = 1.4.6 =
-* NEW: Show All WordPress settings.
+* NEW: Expose the hidden WordPress settings page.
 * ENHANCED: Nice new update message.
 * FIX: "Change Howdy" markup is now correct.
 * FIX: 503 response for Maintenance mode.
