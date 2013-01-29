@@ -3,7 +3,7 @@ Contributors: piklist, p51labs, sbruner
 Tags: piklist, settings, admin bar, dashboard widgets, widgets, visual editor, html editor, excerpts, excerpt length, autosave, howdy, private, protected, close comments, auto linking, AIM, Yahoo IM, Jabber, Google Talk, rss feeds, feeds, maintenance, maintenance mode, under construction
 Tested up to: 3.5
 Requires at least: 3.3.2
-Stable tag: 1.4.5
+Stable tag: 1.4.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -92,6 +92,12 @@ Awesome! We're always looking for new ideas. Please submit them on our <a href="
 
 == Changelog ==
 
+= 1.4.6 =
+* NEW: Show All WordPress settings.
+* ENHANCED: Nice new update message.
+* FIX: "Change Howdy" markup is now correct.
+* FIX: 503 response for Maintenance mode.
+
 = 1.4.5 =
 * NEW: Private Site: Force site to login page.
 * NEW: Redirect to Home Page after user logs in.
@@ -100,13 +106,13 @@ Awesome! We're always looking for new ideas. Please submit them on our <a href="
 * FIX: Link to disable Maintenance Mode is correct.
 
 = 1.4.4 =
-* NEW FEATURE: Enable Link Manager (WordPress 3.5+ only)
-* BUGFIX: Show ID's logic is now confined to is_admin.
-* BUGFIX: Show ID's does not interfere with other table modifications.
+* NEW: Enable Link Manager (WordPress 3.5+ only)
+* FIX: Show ID's logic is now confined to is_admin.
+* FIX: Show ID's does not interfere with other table modifications.
 
 = 1.4.3 =
-* NEW FEATURE: Users and Links are now sortable.
-* BUGFIX: "Include in Search" option should not affect admin search.
+* NEW: Users and Links are now sortable.
+* FIX: "Include in Search" option should not affect admin search.
 
 = 1.4.2 =
 * Temporarily removed System Info tab
