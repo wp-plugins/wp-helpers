@@ -15,9 +15,11 @@ WordPress Helpers opens up the missing settings you wish were in WordPress.
 
 **This plugin requires <a href="http://wordpress.org/extend/plugins/piklist/">Piklist</a>.**
 
+<blockquote>
 [Watch the WordPress Helpers Demo](http://www.youtube.com/watch?v=ZYSUDvodWxI&hd=1):
 
 http://www.youtube.com/watch?v=ZYSUDvodWxI&hd=1
+</blockquote>
 
 = With WordPress Helpers you can easily: =
 * Take control of the WordPress Admin Bar... including "Howdy".
@@ -66,11 +68,10 @@ http://www.youtube.com/watch?v=ZYSUDvodWxI&hd=1
 * Display an notice to your users in the admin or on the front of your site.
 
 
-<blockquote>
 = Read The Reviews =
 * <a href="http://wpmu.org/wordpress-helpers-the-missing-settings-page-for-wordpress/">WPMU.org</a>
 * <a href="https://managewp.com/wordpress-settings-wordpress-helpers/"/>ManageWP.com</a>
-</blockquote>
+
 
 
 == Frequently Asked Questions ==
