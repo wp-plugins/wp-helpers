@@ -23,6 +23,7 @@ With WordPress Helpers you can easily:
 
 * Take control of the WordPress Admin Bar... including "Howdy".
 * Show ID's on edit screens for Posts, Pages, Categories, Tags, Users, Media, Custom Post Types and Custom Taxonomies.
+* Expose the hidden WordPress settings page.
 * Disable the theme switcher.
 * Remove the "Screen Options" tab.
 * Disable Upgrade Notifications for WordPress, Themes and Plugins (individually).
