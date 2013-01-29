@@ -19,8 +19,7 @@ WordPress Helpers opens up the missing settings you wish were in WordPress.
 
 http://www.youtube.com/watch?v=ZYSUDvodWxI&hd=1
 
-With WordPress Helpers you can easily:
-
+= With WordPress Helpers you can easily: =
 * Take control of the WordPress Admin Bar... including "Howdy".
 * Show ID's on edit screens for Posts, Pages, Categories, Tags, Users, Media, Custom Post Types and Custom Taxonomies.
 * Expose the hidden WordPress settings page.
@@ -30,16 +29,14 @@ With WordPress Helpers you can easily:
 * Hide Dashboard widgets.
 * Set the default Dashboard columns.
 
-**Writing**
-
+= Writing =
 * Set the default Post editor (Visual or HTML).
 * Totally disable the Visual Editor.
 * Increase the height of the Excerpt box when writing a Post.
 * Disable Autosave.
 * Set the Post Per Page on the edit screen.
 
-**Reading**
-
+= Reading =
 * Set Excerpt length by characters or words.
 * Remove the "Private" and "Protected" title prefixes.
 * Disable RSS Feeds.
@@ -47,30 +44,33 @@ With WordPress Helpers you can easily:
 * Include/Exclude Post Types in Search.
 * Disable XML-RPC (WordPress 3.5 or later)
 
-**Discussion**
-
+= Discussion =
 * Do not allow comments on Pages.
 * Remove auto linking in comments.
 * Disable Self Pinging.
 
-**Appearance**
-
+= Appearance =
 * Enhanced Body/Post Classes: Browser detect, Taxonomies (including hierarchy levels), post date, has post thumbnail, author information, logged in users, multisite, odd/even (post archives only), post excerpt.
 * Remove any/all default WordPress widgets.
 * Run any shortcode in a widget.
 * Remove WordPress version, Feed Links, RSD Link, wlwmanifest and relational links for the posts adjacent to the current post, from your theme header.
 
-**User Profiles**
-
+= User Profiles =
 * Remove the Admin color scheme option from the User Profiles.
 * Remove AIM, Yahoo IM, Jabber/Google Talk.
 
-**Site Visitors**
-
+= Site Visitors =
 * Put your site into Maintenance Mode.
 * Create a Private website.
 * Redirect vistors to the home page after login.
 * Display an notice to your users in the admin or on the front of your site.
+
+
+<blockquote>
+= Read The Reviews =
+* <a href="http://wpmu.org/wordpress-helpers-the-missing-settings-page-for-wordpress/">WPMU.org</a>
+* <a href="https://managewp.com/wordpress-settings-wordpress-helpers/"/>ManageWP.com</a>
+</blockquote>
 
 
 == Frequently Asked Questions ==
