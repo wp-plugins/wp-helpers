@@ -13,13 +13,13 @@ The missing settings page for WordPress.
 
 WordPress Helpers opens up the missing settings you wish were in WordPress.
 
-**This plugin requires <a href="http://wordpress.org/extend/plugins/piklist/">Piklist</a>.**
-
 <blockquote>
+This plugin requires <a href="http://wordpress.org/extend/plugins/piklist/">Piklist</a>.
+</blockquote>
+
 [Watch the WordPress Helpers Demo](http://www.youtube.com/watch?v=ZYSUDvodWxI&hd=1):
 
 http://www.youtube.com/watch?v=ZYSUDvodWxI&hd=1
-</blockquote>
 
 = With WordPress Helpers you can easily: =
 * Take control of the WordPress Admin Bar... including "Howdy".
