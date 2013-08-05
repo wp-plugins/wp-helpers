@@ -3,7 +3,7 @@
 Plugin Name: WordPress Helpers
 Plugin URI: http://piklist.com
 Description: Enhanced settings for WordPress. Located under <a href="tools.php?page=piklist_wp_helpers">TOOLS > HELPERS</a>
-Version: 1.4.9
+Version: 1.5.0
 Author: Piklist
 Author URI: http://piklist.com/
 Plugin Type: Piklist
@@ -779,8 +779,7 @@ class Piklist_WordPress_Helpers
       }
       else
       {
-        piklist::pre(self::$options);
-        //wp_die(self::$options['maintenance_mode_message'], 'Temporarily Down for Maintenance', array('response' => '503'));
+        wp_die(self::$options['maintenance_mode_message'], 'Temporarily Down for Maintenance', array('response' => '503'));
       }           
     }
   }
