@@ -35,6 +35,7 @@ Order: 110
           ,'dashboard_recent_comments' => 'Recent Comments'
           ,'dashboard_incoming_links' => 'Incoming Links'
           ,'dashboard_quick_press' => 'QuickPress'
+          ,'dashboard_browser_nag' => 'Browser Upgrade Warning'
 
         )
         ,'columns' => 4

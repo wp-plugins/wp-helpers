@@ -77,7 +77,7 @@ Order: 610
     ,'label' => 'Frontend Message'
     ,'description' => 'Displays on front of website.'
     ,'choices' => array(
-      'true' => 'Message:[field=logged_in_front_message][field=notice_user_type][field=notice_color]'
+      'true' => 'Message:[field=logged_in_front_message][field=notice_user_type][field=notice_browser_type][field=notice_color]'
     )
     ,'fields' => array(
       array(
@@ -99,6 +99,27 @@ Order: 610
         ,'choices' => array(
           'all' => 'All Users'
           ,'logged_in' => 'Logged in Users'
+        )
+      ),
+      array(
+        'type' => 'select'
+        ,'field' => 'notice_browser_type'
+        ,'value' => 'all'
+        ,'attributes' => array(
+          'class' => 'small-text'
+        )
+        ,'choices' => array(
+          'all' => 'All Browsers'
+          ,'is_chrome' => 'Chrome'
+          ,'is_gecko' => 'Gecko'
+          , 'is_IE' => 'IE'
+          , 'is_macIE' => 'IE: MAC'
+          , 'is_winIE' => 'IE: Windows'
+          ,'is_lynx' => 'Lynx'
+          , 'is_opera' => 'Opera'
+          , 'is_NS4' => 'NS4'
+          , 'is_safari' => 'Safari'
+          , 'is_iphone' => 'Safari: mobile'
         )
       ),
       array(

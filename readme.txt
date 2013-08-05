@@ -1,9 +1,9 @@
 === WordPress Helpers ===
 Contributors: piklist, p51labs, sbruner
 Tags: piklist, settings, admin bar, dashboard widgets, widgets, visual editor, html editor, excerpts, excerpt length, autosave, howdy, private, protected, close comments, auto linking, AIM, Yahoo IM, Jabber, Google Talk, rss feeds, feeds, maintenance, maintenance mode, under construction
-Tested up to: 3.5
+Tested up to: 3.6
 Requires at least: 3.3.2
-Stable tag: 1.4.8
+Stable tag: 1.4.9
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -28,6 +28,7 @@ http://www.youtube.com/watch?v=ZYSUDvodWxI&hd=1
 * Disable Upgrade Notifications for WordPress, Themes and Plugins (individually).
 * Hide Dashboard widgets.
 * Set the default Dashboard columns.
+* View Screen Information in the Help Tab.
 
 = Writing =
 * Set the default Post editor (Visual or HTML).
@@ -59,6 +60,9 @@ http://www.youtube.com/watch?v=ZYSUDvodWxI&hd=1
 = User Profiles =
 * Remove the Admin color scheme option from the User Profiles.
 * Remove AIM, Yahoo IM, Jabber/Google Talk.
+
+= User Communication =
+* Change WordPress "from" email address.
 
 = Site Visitors =
 * Put your site into Maintenance Mode.
@@ -92,6 +96,14 @@ Awesome! We're always looking for new ideas. Please submit them on our <a href="
 * Install and activate WordPress Helpers like any other plugin.
 
 == Changelog ==
+
+= 1.4.9 =
+* NEW: System Information
+* NEW: Change WordPress "from" email address.
+* NEW: Screen Information in Help Tab.
+* ENHANCED: Site ID in Multisite.
+* ENHANCED: User message can now be filtered by browser.
+* ENHANCED: Remove Dashboard widget: Browser Upgrade Warning
 
 = 1.4.8 =
 * ENHANCED: Updated to latest version of Piklist Checker.
