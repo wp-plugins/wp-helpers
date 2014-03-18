@@ -3,7 +3,7 @@
 Plugin Name: WordPress Helpers
 Plugin URI: http://piklist.com
 Description: Enhanced settings for WordPress. Located under <a href="tools.php?page=piklist_wp_helpers">TOOLS > HELPERS</a>
-Version: 1.5.1
+Version: 1.5.2
 Author: Piklist
 Author URI: http://piklist.com/
 Plugin Type: Piklist
@@ -38,12 +38,15 @@ License: GPLv2
   *******************************************************************************
 */
 
+
 add_action('init', array('piklist_wordpress_helpers', 'init'), -1);
 add_action('admin_init', array('piklist_wordpress_helpers', 'admin_init'), -1);
 
 class Piklist_WordPress_Helpers
 {
   private static $options = null;
+
+  public static $registered_widgets = array();
   
   private static $filter_priority = 9999;
 
@@ -62,6 +65,8 @@ class Piklist_WordPress_Helpers
       {
         return;
       }
+
+      add_action('wp_dashboard_setup', array('piklist_wordpress_helpers', 'get_dashboard_widgets'));
       
       add_filter('piklist_admin_pages', array('piklist_wordpress_helpers', 'admin_pages'));
     }
@@ -102,13 +107,21 @@ class Piklist_WordPress_Helpers
     return $pages;
   }
 
+  public static function get_dashboard_widgets()
+  {
+    global $wp_meta_boxes;
+
+    self::$registered_widgets = $wp_meta_boxes;
+  }
+
   public static function helpers() 
   {   
     if (self::$options = get_option('piklist_wp_helpers'))
     {
       foreach (self::$options as $option => $value)
       {
-        $value = is_array($value) && count($value) == 1 ? $value[0] : $value;
+        $value = is_array($value) && array_key_exists(0, $value) && (count($value) == 1) ? $value[0] : $value;
+        //piklist::pre($value);
 
         if ($value == 'true')
         {
@@ -135,11 +148,7 @@ class Piklist_WordPress_Helpers
             break;
 
             case 'disable_feeds':
-              add_action('do_feed', array('piklist_wordpress_helpers', 'wp_die'), self::$filter_priority);
-              add_action('do_feed_rdf', array('piklist_wordpress_helpers', 'wp_die'), self::$filter_priority);
-              add_action('do_feed_rss', array('piklist_wordpress_helpers', 'wp_die'), self::$filter_priority);
-              add_action('do_feed_rss2', array('piklist_wordpress_helpers', 'wp_die'), self::$filter_priority);
-              add_action('do_feed_atom', array('piklist_wordpress_helpers', 'wp_die'), self::$filter_priority);
+               add_filter('wp', array('piklist_wordpress_helpers', 'disable_feed'), self::$filter_priority);
             break;
 
             case 'featured_image_in_feed':
@@ -238,6 +247,7 @@ class Piklist_WordPress_Helpers
 
             case 'edit_posts_per_page':
               add_filter('edit_posts_per_page', array('piklist_wordpress_helpers', 'edit_posts_per_page'), self::$filter_priority);
+              add_action('piklist_helpers_admin_css', array('piklist_wordpress_helpers', 'screen_options'), self::$filter_priority);
             break;
 
             case 'excerpt_box_height':
@@ -355,7 +365,7 @@ class Piklist_WordPress_Helpers
             break;
 
             case 'delay_feed':
-              $delay_feed_num = self::$options['delay_feed'][0]['delay_feed_num'];
+              ////$delay_feed_num = self::$options['delay_feed'][0]['delay_feed_num'];
               if (!empty($delay_feed_num))
               {
                 add_filter('posts_where', array('piklist_wordpress_helpers', 'delay_feed'), self::$filter_priority);
@@ -430,7 +440,7 @@ class Piklist_WordPress_Helpers
 
   public static function remove_widgets()
   {
-    $value = self::$options['remove_widgets'][0]['widgets'];
+    $value = self::$options['remove_widgets']['widgets'];
     $value = is_array($value) ? $value : array($value);
 
     foreach ($value as $tag)
@@ -441,8 +451,12 @@ class Piklist_WordPress_Helpers
 
   public static function remove_dashboard_widgets()
   {
-    $value = self::$options['remove_dashboard_widgets'][0]['dashboard_widgets'];
+
+    $value = self::$options['remove_dashboard_widgets']['dashboard_widgets'];
     $value = is_array($value) ? $value : array($value);
+
+
+    //piklist::pre($value);
 
     foreach ($value as $tag)
     {
@@ -577,6 +591,11 @@ class Piklist_WordPress_Helpers
     echo '.screen-layout, .columns-prefs { display: none; }' . PHP_EOL;
   }
 
+  public static function screen_options()
+  { 
+    echo 'body.edit-php .screen-options { display: none; }' . PHP_EOL;
+  }
+
   public static function comments_open_pages( $open, $post_id )
   {
     if ('page' == get_post_type())
@@ -705,13 +724,16 @@ class Piklist_WordPress_Helpers
         $value = (int) $value;
       
       break;
+
+      default:
+
+        $value = '';
+
+      break;
     }
     
     return $value;
   }
-
-
-
 
 
   public static function column_id_width()
@@ -773,13 +795,13 @@ class Piklist_WordPress_Helpers
   {
     if (!current_user_can('manage_options') || !is_user_logged_in())
     {
-      if (isset(self::$options['private_site']))
+      if (!empty(self::$options['private_site']))
       {
         self::redirect_to_login();
       }
       else
       {
-        wp_die(self::$options['maintenance_mode_message'], 'Temporarily Down for Maintenance', array('response' => '503'));
+        wp_die(self::$options['maintenance_mode_message'], self::$options['maintenance_mode_message'], array('response' => '503'));
       }           
     }
   }
@@ -1096,6 +1118,19 @@ class Piklist_WordPress_Helpers
     return $query;
   }
 
+public static function disable_feed()
+{
+  global $wp_query;
+
+  if($wp_query->is_feed == 1)
+  {
+    self::wp_die();
+  }
+
+  self::remove_filter('wp_head', 'feed_links');
+  self::remove_filter('wp_head', 'feed_links_extra');
+}
+
 public static function delay_feed($where)
 {
   global $wpdb;
@@ -1125,7 +1160,11 @@ public static function delay_feed($where)
 
     <div id="wp-helpers-notice" class="alert alert-<?php echo $type; ?>">
 
-      <?php echo $message; ?>
+      <span>
+
+        <?php echo $message; ?>
+
+    </span>
         
     </div>
 
@@ -1169,6 +1208,9 @@ public static function delay_feed($where)
     </style>
 <?php
   }
+
 }
+
+
 
 ?>
