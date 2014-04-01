@@ -2,8 +2,8 @@
 Contributors: piklist, p51labs, sbruner
 Tags: piklist, settings, admin bar, dashboard widgets, widgets, visual editor, html editor, excerpts, excerpt length, autosave, howdy, private, protected, close comments, auto linking, AIM, Yahoo IM, Jabber, Google Talk, rss feeds, feeds, maintenance, maintenance mode, under construction
 Tested up to: 3.8
-Requires at least: 3.3.2
-Stable tag: 1.5.2
+Requires at least: 3.4
+Stable tag: 1.5.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -99,6 +99,9 @@ Awesome! We're always looking for new ideas. Please submit them on our <a href="
 
 == Changelog ==
 
+= 1.5.3 =
+* Now requires WordPress 3.4.
+* Fixed notices.
 
 = 1.5.2 =
 * ENHANCED: Better Frontend notice.
