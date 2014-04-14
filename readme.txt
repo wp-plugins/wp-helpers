@@ -1,7 +1,7 @@
 === WordPress Helpers ===
 Contributors: piklist, p51labs, sbruner
 Tags: piklist, settings, admin bar, dashboard widgets, widgets, visual editor, html editor, excerpts, excerpt length, autosave, howdy, private, protected, close comments, auto linking, AIM, Yahoo IM, Jabber, Google Talk, rss feeds, feeds, maintenance, maintenance mode, under construction
-Tested up to: 3.8
+Tested up to: 3.9
 Requires at least: 3.4
 Stable tag: 1.5.3
 License: GPLv2 or later
