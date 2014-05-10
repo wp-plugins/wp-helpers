@@ -9,6 +9,7 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 The missing settings page for WordPress.
 
+
 == Description ==
 
 WordPress Helpers opens up the missing settings you wish were in WordPress.
