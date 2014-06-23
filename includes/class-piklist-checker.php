@@ -46,18 +46,14 @@ if (!class_exists('Piklist_Checker'))
       {
         if (is_plugin_active_for_network(plugin_basename($this_plugin)))
         {
-          if (!is_plugin_active_for_network('piklist/piklist.php'))
+          if (is_plugin_active_for_network('piklist/piklist.php'))
           {
-            if(is_plugin_active('piklist/piklist.php'))
-            {
-              return true; 
-            }
-            else
-            {
-              self::deactivate_plugins($this_plugin, 'network');
-            }
+            return true; 
           }
-          return true;
+          else
+          {
+              self::deactivate_plugins($this_plugin, 'network');
+          }
         }
         else
         {
