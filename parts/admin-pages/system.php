@@ -50,8 +50,11 @@ function piklist_site_inventory()
 {
   global $wp_version;
 
+  $plugins_active = '';
+  $plugins_inactive =' ';
+
   // WordPress Environment
-  $theme = get_theme(get_current_theme());
+  $theme = wp_get_theme(wp_get_theme());
   $themename = $theme['Name'];
   $themeversion = $theme['Version'];
   $themeauthor = strip_tags($theme['Author']);
