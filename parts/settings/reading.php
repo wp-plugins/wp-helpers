@@ -4,6 +4,7 @@ Title: Reading
 Setting: piklist_wp_helpers
 Tab: Reading
 Order: 300
+Tab Order: 30
 */
 
   piklist('field', array(

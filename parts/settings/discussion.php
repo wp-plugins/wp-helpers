@@ -4,6 +4,7 @@ Title: Comments
 Setting: piklist_wp_helpers
 Tab: Discussion
 Order: 400
+Tab Order: 50
 */
 
   piklist('field', array(

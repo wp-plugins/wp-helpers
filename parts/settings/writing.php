@@ -4,6 +4,7 @@ Title: Writing
 Setting: piklist_wp_helpers
 Tab: Writing
 Order: 200
+Tab Order: 20
 */
 
 global $wp_version;

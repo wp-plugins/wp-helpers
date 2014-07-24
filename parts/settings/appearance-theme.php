@@ -4,6 +4,7 @@ Title: Theme
 Setting: piklist_wp_helpers
 Tab: Appearance
 Order: 500
+Tab Order: 40
 */
 
   piklist('field', array(

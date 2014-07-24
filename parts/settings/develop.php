@@ -4,6 +4,7 @@ Title: Developer Tools
 Setting: piklist_wp_helpers
 Tab: Develop
 Order: 999
+Tab Order: 999
 */
 
   piklist('field', array(
