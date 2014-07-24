@@ -5,6 +5,7 @@ Setting: piklist_wp_helpers
 Order: 110
 */
 
+
   piklist('field', array(
     'type' => 'select'
     ,'field' => 'screen_layout_columns_dashboard'
@@ -36,15 +37,7 @@ Order: 110
           ,'dashboard_incoming_links' => 'Incoming Links'
           ,'dashboard_quick_press' => 'QuickPress'
           ,'dashboard_browser_nag' => 'Browser Upgrade Warning'
-
-        )
-        ,'columns' => 4
-      )
-      ,array(
-        'type' => 'checkbox'
-        ,'field' => 'dashboard_widgets'
-        ,'choices' => array(
-          'dashboard_recent_drafts' => 'Recent Drafts'
+          ,'dashboard_recent_drafts' => 'Recent Drafts'
           ,'dashboard_primary' => 'WordPress Blog'
           ,'dashboard_secondary' => 'WordPress News'
           ,'dashboard_plugins' => 'Plugins'

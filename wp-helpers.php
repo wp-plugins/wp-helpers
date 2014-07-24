@@ -121,7 +121,6 @@ class Piklist_WordPress_Helpers
       foreach (self::$options as $option => $value)
       {
         $value = is_array($value) && array_key_exists(0, $value) && (count($value) == 1) ? $value[0] : $value;
-        //piklist::pre($value);
 
         if ($value == 'true')
         {
@@ -440,27 +439,25 @@ class Piklist_WordPress_Helpers
 
   public static function remove_widgets()
   {
-    $value = self::$options['remove_widgets']['widgets'];
-    $value = is_array($value) ? $value : array($value);
+    $widgets = self::$options['remove_widgets']['widgets'];
+    $widgets = is_array($widgets) ? $widgets : array($widgets);
 
-    foreach ($value as $tag)
+    foreach ($widgets[0] as $tag => $value)
     {
-      unregister_widget($tag);
+      unregister_widget($value);
     }
   }
 
   public static function remove_dashboard_widgets()
   {
 
-    $value = self::$options['remove_dashboard_widgets']['dashboard_widgets'];
-    $value = is_array($value) ? $value : array($value);
+    $widgets = self::$options['remove_dashboard_widgets']['dashboard_widgets'];
 
+    $widgets = is_array($widgets) ? $widgets : array($widgets);
 
-    //piklist::pre($value);
-
-    foreach ($value as $tag)
+    foreach ($widgets[0] as $tag => $value)
     {
-      remove_meta_box($tag, 'dashboard', 'normal');
+      remove_meta_box($value, 'dashboard', 'normal');
     }
   }
 
