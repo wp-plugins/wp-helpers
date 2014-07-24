@@ -5,11 +5,6 @@ Setting: piklist_wp_helpers
 Order: 110
 */
 
-
-//print_r(piklist_wordPress_helpers::$registered_widgets);
-
-
-
   piklist('field', array(
     'type' => 'select'
     ,'field' => 'screen_layout_columns_dashboard'
