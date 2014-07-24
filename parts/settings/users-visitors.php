@@ -16,17 +16,21 @@ Order: 610
     'type' => 'checkbox'
     ,'field' => 'maintenance_mode'
     ,'label' => 'Maintenance Mode'
+    ,'description' => 'Disable site and show message'
     ,'choices' => array(
-      'true' => 'Disable site and show message:[field=maintenance_mode_message]'
+      'true' => 'Message:[field=maintenance_mode_message]'
     )
     ,'fields' => array(
       array(
-        'type' => 'text'
+        'type' => 'textarea'
         ,'field' => 'maintenance_mode_message'
         ,'value' => 'We are currently down for Maintenance.'
         ,'embed' => true
         ,'attributes' => array(
           'class' => 'regular-text'
+          ,'style' => 'vertical-align: top'
+          ,'cols' => 55
+          ,'rows' => 3
         )
       )
     )
@@ -60,12 +64,15 @@ Order: 610
     )
     ,'fields' => array(
       array(
-        'type' => 'text'
+        'type' => 'textarea'
         ,'field' => 'admin_message'
         ,'value' => 'This site will be down for Maintenance tomorrow.'
         ,'embed' => true
         ,'attributes' => array(
           'class' => 'regular-text'
+          ,'style' => 'vertical-align: top'
+          ,'cols' => 55
+          ,'rows' => 3
         )
       )
     )
@@ -81,12 +88,15 @@ Order: 610
     )
     ,'fields' => array(
       array(
-        'type' => 'text'
+        'type' => 'textarea'
         ,'field' => 'logged_in_front_message'
         ,'value' => 'This site will be down for Maintenance tomorrow.'
         ,'embed' => true
         ,'attributes' => array(
           'class' => 'regular-text'
+          ,'style' => 'vertical-align: top'
+          ,'cols' => 55
+          ,'rows' => 3
         )
       ),
       array(

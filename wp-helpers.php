@@ -3,7 +3,7 @@
 Plugin Name: WordPress Helpers
 Plugin URI: http://piklist.com
 Description: Enhanced settings for WordPress. Located under <a href="tools.php?page=piklist_wp_helpers">TOOLS > HELPERS</a>
-Version: 1.5.4
+Version: 1.5.5
 Author: Piklist
 Author URI: http://piklist.com/
 Plugin Type: Piklist
@@ -384,7 +384,7 @@ class Piklist_WordPress_Helpers
   {
     global $wp_filter;
 
-    extract(piklist::key_path($wp_filter, $tag, array('tag', 'priority', 'filter')));
+    extract(piklist::array_path($wp_filter, $tag, array('tag', 'priority', 'filter')));
     
     if (isset($wp_filter[$filter]) && $filter == $tag)
     {
