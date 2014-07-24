@@ -22,14 +22,7 @@ Order: 510
           ,'WP_Nav_Menu_Widget' => 'Menu'
           ,'WP_Widget_Meta' => 'Meta'
           ,'WP_Widget_Pages' => 'Page'
-        )
-        ,'columns' => 4
-      )
-      ,array(
-        'type' => 'checkbox'
-        ,'field' => 'widgets'
-        ,'choices' => array(
-          'WP_Widget_Recent_Comments' => 'Recent Coments'
+          ,'WP_Widget_Recent_Comments' => 'Recent Coments'
           ,'WP_Widget_Recent_Posts' => 'Recent Posts'
           ,'WP_Widget_RSS' => 'RSS'
           ,'WP_Widget_Search' => 'Search'

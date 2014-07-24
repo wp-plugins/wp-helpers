@@ -100,7 +100,8 @@ Awesome! We're always looking for new ideas. Please submit them on our <a href="
 == Changelog ==
 
 = 1.5.6 =
-* Reorder tabs
+* FIXED: Checkboxes work as expected.
+* FIXED: Tabs in correct order.
 
 = 1.5.5 =
 * Better compatiblity with Piklist 0.9.4
