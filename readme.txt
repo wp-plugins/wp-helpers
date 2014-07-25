@@ -3,7 +3,7 @@ Contributors: piklist, p51labs, sbruner
 Tags: piklist, settings, admin bar, dashboard widgets, widgets, visual editor, html editor, excerpts, excerpt length, autosave, howdy, private, protected, close comments, auto linking, AIM, Yahoo IM, Jabber, Google Talk, rss feeds, feeds, maintenance, maintenance mode, under construction
 Tested up to: 3.9
 Requires at least: 3.4
-Stable tag: 1.5.6
+Stable tag: 1.5.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -98,6 +98,10 @@ Awesome! We're always looking for new ideas. Please submit them on our <a href="
 * Install and activate WordPress Helpers like any other plugin.
 
 == Changelog ==
+
+= 1.5.7 =
+* FIXED: Widgets and Dashboard Widgets works properly. You may need to resave them.
+* Removed deprecated "dashboard_secondary".
 
 = 1.5.6 =
 * FIXED: Checkboxes work as expected.

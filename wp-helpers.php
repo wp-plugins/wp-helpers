@@ -3,7 +3,7 @@
 Plugin Name: WordPress Helpers
 Plugin URI: http://piklist.com
 Description: Enhanced settings for WordPress. Located under <a href="tools.php?page=piklist_wp_helpers">TOOLS > HELPERS</a>
-Version: 1.5.6
+Version: 1.5.7
 Author: Piklist
 Author URI: http://piklist.com/
 Plugin Type: Piklist
@@ -253,11 +253,11 @@ class Piklist_WordPress_Helpers
               add_action('piklist_helpers_admin_css', array('piklist_wordpress_helpers', 'excerpt_box_height'), self::$filter_priority);
             break;
 
-            case 'remove_widgets':
+            case 'remove_widgets_new':
               add_action('widgets_init', array('piklist_wordpress_helpers', 'remove_widgets'), 99);
             break;
 
-            case 'remove_dashboard_widgets':
+            case 'remove_dashboard_widgets_new':
               add_action('admin_init', array('piklist_wordpress_helpers', 'remove_dashboard_widgets'), self::$filter_priority);
             break;
 
@@ -439,10 +439,11 @@ class Piklist_WordPress_Helpers
 
   public static function remove_widgets()
   {
-    $widgets = self::$options['remove_widgets']['widgets'];
+    $widgets = self::$options['remove_widgets_new']['widgets'];
     $widgets = is_array($widgets) ? $widgets : array($widgets);
+    $widgets = $widgets[0];
 
-    foreach ($widgets[0] as $tag => $value)
+    foreach ($widgets as $tag => $value)
     {
       unregister_widget($value);
     }
@@ -451,11 +452,11 @@ class Piklist_WordPress_Helpers
   public static function remove_dashboard_widgets()
   {
 
-    $widgets = self::$options['remove_dashboard_widgets']['dashboard_widgets'];
-
+    $widgets = self::$options['remove_dashboard_widgets_new']['dashboard_widgets'];
     $widgets = is_array($widgets) ? $widgets : array($widgets);
+    $widgets = $widgets[0];
 
-    foreach ($widgets[0] as $tag => $value)
+    foreach ($widgets as $tag => $value)
     {
       remove_meta_box($value, 'dashboard', 'normal');
     }

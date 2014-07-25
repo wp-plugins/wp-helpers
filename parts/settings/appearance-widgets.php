@@ -8,7 +8,7 @@ Order: 510
 
   piklist('field', array(
     'type' => 'group'
-    ,'field' => 'remove_widgets'
+    ,'field' => 'remove_widgets_new'
     ,'label' => 'Remove Widgets'
     ,'fields' => array(
       array(
