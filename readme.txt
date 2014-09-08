@@ -13,7 +13,9 @@ The missing settings page for WordPress.
 
 WordPress Helpers opens up the missing settings you wish were in WordPress.
 
-**This plugin requires <a href="http://wordpress.org/extend/plugins/piklist/">Piklist</a>.**
+> #### Powered by Piklist
+> Piklist is a free plugin which is required for WordPress Helpers. 
+> <a href="http://wordpress.org/extend/plugins/piklist/">You can download and install Piklist here ></a>
 
 [Watch the WordPress Helpers Demo](http://www.youtube.com/watch?v=ZYSUDvodWxI&hd=1):
 
