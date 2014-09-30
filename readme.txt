@@ -1,9 +1,9 @@
 === WordPress Helpers ===
 Contributors: piklist, p51labs, sbruner
 Tags: piklist, settings, admin bar, dashboard widgets, widgets, visual editor, html editor, excerpts, excerpt length, autosave, howdy, private, protected, close comments, auto linking, AIM, Yahoo IM, Jabber, Google Talk, rss feeds, feeds, maintenance, maintenance mode, under construction
-Tested up to: 3.9
-Requires at least: 3.4
-Stable tag: 1.5.7
+Tested up to: 4.0
+Requires at least: 3.6
+Stable tag: 1.5.8
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -13,7 +13,9 @@ The missing settings page for WordPress.
 
 WordPress Helpers opens up the missing settings you wish were in WordPress.
 
-**This plugin requires <a href="http://wordpress.org/extend/plugins/piklist/">Piklist</a>.**
+> #### Powered by Piklist
+> WordPress Helpers requires the Piklist framework.   
+> <a href="http://wordpress.org/extend/plugins/piklist/">You can download and install Piklist for free.</a>
 
 [Watch the WordPress Helpers Demo](http://www.youtube.com/watch?v=ZYSUDvodWxI&hd=1):
 
@@ -98,6 +100,9 @@ Awesome! We're always looking for new ideas. Please submit them on our <a href="
 * Install and activate WordPress Helpers like any other plugin.
 
 == Changelog ==
+
+= 1.5.8 =
+* FIXED: Notice when a user cannot manage_options and the All Options setting is set.
 
 = 1.5.7 =
 * FIXED: Widgets and Dashboard Widgets works properly. You may need to resave them.

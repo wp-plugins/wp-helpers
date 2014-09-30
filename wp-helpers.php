@@ -3,7 +3,7 @@
 Plugin Name: WordPress Helpers
 Plugin URI: http://piklist.com
 Description: Enhanced settings for WordPress. Located under <a href="tools.php?page=piklist_wp_helpers">TOOLS > HELPERS</a>
-Version: 1.5.7
+Version: 1.5.8
 Author: Piklist
 Author URI: http://piklist.com/
 Plugin Type: Piklist
@@ -772,10 +772,15 @@ class Piklist_WordPress_Helpers
 
   public static function all_options_menu()
   {
-    global $submenu;
-    
-    $all_options_menu = array('All','manage_options','options.php');
-    array_unshift($submenu['options-general.php'], $all_options_menu);
+    if(current_user_can('manage_options'))
+    {
+
+      global $submenu;
+      
+      $all_options_menu = array('All','manage_options','options.php');
+      array_unshift($submenu['options-general.php'], $all_options_menu);
+
+    }
   }
 
   public static function mail_from($old)
