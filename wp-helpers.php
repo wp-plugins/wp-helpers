@@ -3,7 +3,7 @@
 Plugin Name: WordPress Helpers
 Plugin URI: http://piklist.com
 Description: Enhanced settings for WordPress. Located under <a href="tools.php?page=piklist_wp_helpers">TOOLS > HELPERS</a>
-Version: 1.5.8
+Version: 1.5.9
 Author: Piklist
 Author URI: http://piklist.com/
 Plugin Type: Piklist
@@ -295,6 +295,14 @@ class Piklist_WordPress_Helpers
               add_filter('admin_bar_menu', array('piklist_wordpress_helpers', 'change_howdy'), self::$filter_priority);
             break;
 
+            case 'login_image':
+              add_action('login_head', array('piklist_wordpress_helpers', 'login_css'), self::$filter_priority);
+            break;
+
+            case 'login_background':
+              add_action('login_head', array('piklist_wordpress_helpers', 'login_background'), self::$filter_priority);
+            break;
+
             case 'mail_from':
               add_filter('wp_mail_from', array('piklist_wordpress_helpers', 'mail_from'), self::$filter_priority);
             break;
@@ -364,11 +372,14 @@ class Piklist_WordPress_Helpers
             break;
 
             case 'delay_feed':
-              ////$delay_feed_num = self::$options['delay_feed'][0]['delay_feed_num'];
               if (!empty($delay_feed_num))
               {
                 add_filter('posts_where', array('piklist_wordpress_helpers', 'delay_feed'), self::$filter_priority);
               }
+            break;
+
+            case 'avatar_defaults':
+              add_filter('default_avatar_select', array('piklist_wordpress_helpers', 'avatar_defaults'));      
             break;
 
           }
@@ -501,6 +512,43 @@ class Piklist_WordPress_Helpers
     ));
   }
 
+
+  public static function login_css()
+  {
+    $image_id = is_array(self::$options['login_image']) ? self::$options['login_image'] : array(self::$options['login_image']);
+    shuffle($image_id);
+    $image_url = wp_get_attachment_url($image_id[0]);
+
+    $size = getimagesize($image_url);
+    
+?>
+    <!-- Piklist WP Helpers -->   
+    <style type="text/css">  
+      .login h1 a {
+        background: url(<?php echo esc_url_raw($image_url); ?>) no-repeat top center;
+        width: <?php echo $size[0]; ?>px;
+        height: <?php echo $size[1]; ?>px;
+      }
+    </style>
+<?php
+  }
+
+  public static function login_background()
+  {
+    $color = self::$options['login_background'];
+?>
+    <!-- Piklist WP Helpers -->   
+    <style type="text/css">
+      html {
+        background: none repeat scroll 0 0 <?php echo $color; ?>;
+      }
+      body.login {
+        background: none repeat scroll 0 0 <?php echo $color; ?>;
+      }
+    </style>
+<?php
+  }
+
   public static function remove_admin_bar_components()
   {
     global $wp_admin_bar;
@@ -603,6 +651,32 @@ class Piklist_WordPress_Helpers
     
     return $open;
   }
+
+  public static function avatar_defaults($avatar_list)
+  {
+
+    
+    $avatars = is_array(self::$options['avatar_defaults']) ? self::$options['avatar_defaults'] : array(self::$options['avatar_defaults']);
+
+    foreach ($avatars as $avatar => $value)
+    {
+      $image = wp_get_attachment_url($value);
+      $title = get_the_title($value);
+
+      //piklist::pre($image);
+
+      $avatar_defaults[$image] = $title;
+
+      $avatar_list .=     '<label><input type="radio" name="avatar_default" id="avatar_bruner" value="bruner"> <img alt="" src="' . $image . '" class="avatar avatar-32 photo" height="32" width="32">' . $title . '</label>';
+    }
+
+
+
+    
+    return $avatar_list;
+  }
+
+
   
   public static function show_ids() 
   {
@@ -1154,7 +1228,7 @@ public static function delay_feed($where)
   {
     piklist('shared/admin-notice', array(
       'type' => $error ? 'error' : 'updated'
-      ,'message' => $message
+      ,'notices' => $message
     ));
   }
 

@@ -3,7 +3,7 @@ Contributors: piklist, p51labs, sbruner
 Tags: piklist, settings, admin bar, dashboard widgets, widgets, visual editor, html editor, excerpts, excerpt length, autosave, howdy, private, protected, close comments, auto linking, AIM, Yahoo IM, Jabber, Google Talk, rss feeds, feeds, maintenance, maintenance mode, under construction
 Tested up to: 4.0
 Requires at least: 3.6
-Stable tag: 1.5.8
+Stable tag: 1.5.9
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -22,6 +22,7 @@ WordPress Helpers opens up the missing settings you wish were in WordPress.
 http://www.youtube.com/watch?v=ZYSUDvodWxI&hd=1
 
 = With WordPress Helpers you can easily: =
+* Customize your login screen logo and background color.
 * Take control of the WordPress Admin Bar... including "Howdy".
 * Show ID's on edit screens for Posts, Pages, Categories, Tags, Users, Media, Custom Post Types and Custom Taxonomies.
 * Expose the hidden WordPress settings page.
@@ -100,6 +101,10 @@ Awesome! We're always looking for new ideas. Please submit them on our <a href="
 * Install and activate WordPress Helpers like any other plugin.
 
 == Changelog ==
+
+= 1.5.9 =
+* NEW: Customize your login screen logo and background color. 
+* ENHANCED: Better UI for Users > Visitors settings.
 
 = 1.5.8 =
 * FIXED: Notice when a user cannot manage_options and the All Options setting is set.
