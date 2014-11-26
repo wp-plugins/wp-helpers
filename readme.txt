@@ -7,11 +7,11 @@ Stable tag: 1.5.9
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-The missing settings page for WordPress.
+Take control of WordPress. Adds over 50 more settings to your admin.
 
 == Description ==
 
-WordPress Helpers opens up the missing settings you wish were in WordPress.
+Take control of WordPress. Adds over 50 more settings to your admin.
 
 > #### Powered by Piklist
 > WordPress Helpers requires the Piklist framework.   
