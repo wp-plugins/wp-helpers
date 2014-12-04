@@ -3,15 +3,15 @@ Contributors: piklist, p51labs, sbruner
 Tags: piklist, settings, admin bar, dashboard widgets, widgets, visual editor, html editor, excerpts, excerpt length, autosave, howdy, private, protected, close comments, auto linking, AIM, Yahoo IM, Jabber, Google Talk, rss feeds, feeds, maintenance, maintenance mode, under construction
 Tested up to: 4.0
 Requires at least: 3.6
-Stable tag: 1.5.9
+Stable tag: 1.6.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-The missing settings page for WordPress.
+Take control of WordPress. Adds over 50 more settings to your admin.
 
 == Description ==
 
-WordPress Helpers opens up the missing settings you wish were in WordPress.
+Take control of WordPress. Adds over 50 more settings to your admin.
 
 > #### Powered by Piklist
 > WordPress Helpers requires the Piklist framework.   
@@ -101,6 +101,9 @@ Awesome! We're always looking for new ideas. Please submit them on our <a href="
 * Install and activate WordPress Helpers like any other plugin.
 
 == Changelog ==
+
+= 1.6.0 =
+* ENHANCED: Upgraded Piklist Checker to 0.6.0
 
 = 1.5.9 =
 * NEW: Customize your login screen logo and background color. 

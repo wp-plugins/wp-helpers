@@ -3,7 +3,7 @@
 Plugin Name: WordPress Helpers
 Plugin URI: http://piklist.com
 Description: Enhanced settings for WordPress. Located under <a href="tools.php?page=piklist_wp_helpers">TOOLS > HELPERS</a>
-Version: 1.5.9
+Version: 1.6.0
 Author: Piklist
 Author URI: http://piklist.com/
 Plugin Type: Piklist
@@ -37,7 +37,6 @@ License: GPLv2
   SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   *******************************************************************************
 */
-
 
 add_action('init', array('piklist_wordpress_helpers', 'init'), -1);
 add_action('admin_init', array('piklist_wordpress_helpers', 'admin_init'), -1);
