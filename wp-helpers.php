@@ -38,7 +38,6 @@ License: GPLv2
   *******************************************************************************
 */
 
-
 add_action('init', array('piklist_wordpress_helpers', 'init'), -1);
 add_action('admin_init', array('piklist_wordpress_helpers', 'admin_init'), -1);
 
