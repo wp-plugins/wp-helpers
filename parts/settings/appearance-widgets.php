@@ -22,7 +22,7 @@ Order: 510
           ,'WP_Nav_Menu_Widget' => 'Menu'
           ,'WP_Widget_Meta' => 'Meta'
           ,'WP_Widget_Pages' => 'Page'
-          ,'WP_Widget_Recent_Comments' => 'Recent Coments'
+          ,'WP_Widget_Recent_Comments' => 'Recent Comments'
           ,'WP_Widget_Recent_Posts' => 'Recent Posts'
           ,'WP_Widget_RSS' => 'RSS'
           ,'WP_Widget_Search' => 'Search'
@@ -42,5 +42,3 @@ Order: 510
       'true' => 'Run any shortcode in a widget'
     )
   ));
-
-?>

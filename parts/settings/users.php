@@ -27,6 +27,3 @@ Tab Order: 60
       ,'jabber' => 'Jabber/Google Talk'
     )
   ));
-
-  
-?>

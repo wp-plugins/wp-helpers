@@ -29,6 +29,3 @@ Order: 605
       'class' => 'regular-text'
     )
   ));
-
- 
-?>

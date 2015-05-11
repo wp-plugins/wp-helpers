@@ -3,7 +3,7 @@
 Plugin Name: WordPress Helpers
 Plugin URI: http://piklist.com
 Description: Enhanced settings for WordPress. Located under <a href="tools.php?page=piklist_wp_helpers">TOOLS > HELPERS</a>
-Version: 1.6.0
+Version: 1.6.1
 Author: Piklist
 Author URI: http://piklist.com/
 Plugin Type: Piklist
@@ -377,10 +377,6 @@ class Piklist_WordPress_Helpers
               }
             break;
 
-            case 'avatar_defaults':
-              add_filter('default_avatar_select', array('piklist_wordpress_helpers', 'avatar_defaults'));      
-            break;
-
           }
         }
       }
@@ -650,32 +646,6 @@ class Piklist_WordPress_Helpers
     
     return $open;
   }
-
-  public static function avatar_defaults($avatar_list)
-  {
-
-    
-    $avatars = is_array(self::$options['avatar_defaults']) ? self::$options['avatar_defaults'] : array(self::$options['avatar_defaults']);
-
-    foreach ($avatars as $avatar => $value)
-    {
-      $image = wp_get_attachment_url($value);
-      $title = get_the_title($value);
-
-      //piklist::pre($image);
-
-      $avatar_defaults[$image] = $title;
-
-      $avatar_list .=     '<label><input type="radio" name="avatar_default" id="avatar_bruner" value="bruner"> <img alt="" src="' . $image . '" class="avatar avatar-32 photo" height="32" width="32">' . $title . '</label>';
-    }
-
-
-
-    
-    return $avatar_list;
-  }
-
-
   
   public static function show_ids() 
   {
@@ -1286,7 +1256,3 @@ public static function delay_feed($where)
   }
 
 }
-
-
-
-?>

@@ -29,5 +29,3 @@ Tab Order: 40
       ,'adjacent_posts_rel_link_wp_head' => 'Relational links for the posts adjacent to the current post.'
     )
   ));
-
-?>

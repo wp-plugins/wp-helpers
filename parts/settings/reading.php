@@ -46,7 +46,3 @@ Tab Order: 30
       'true' => 'Remove the "Protected:" title prefix from the protected posts'
     )
   ));
-
-
-
-?>

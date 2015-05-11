@@ -24,6 +24,3 @@ Tab Order: 999
       'screen-information' => 'In HELP Tabs'
     )
   ));
-
-
-?>

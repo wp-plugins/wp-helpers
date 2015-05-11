@@ -73,6 +73,3 @@ global $wp_version;
     ));
 
   }
-
-
-?>

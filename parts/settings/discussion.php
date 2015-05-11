@@ -25,4 +25,13 @@ Tab Order: 50
     )
   ));
 
-?>
+  piklist('field', array(
+    'type' => 'file'
+    ,'field' => 'avatar_defaults'
+    ,'label' => 'Default avatar'
+    ,'description' => 'Image should be 48px square.'
+    ,'options' => array(
+      'title' => 'Add Image'
+      ,'button' => 'Add Image'
+    )
+  ));

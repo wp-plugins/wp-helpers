@@ -9,11 +9,12 @@
 
 $settings = get_option('piklist_wp_helpers');
 
-$settings['remove_dashboard_widgets']['dashboard_widgets'] = array($settings['remove_dashboard_widgets']['dashboard_widgets']);
-$settings['remove_widgets']['widgets'] = array($settings['remove_widgets']['widgets']);
+if(!empty($settings))
+{
+	$settings['remove_dashboard_widgets']['dashboard_widgets'] = array($settings['remove_dashboard_widgets']['dashboard_widgets']);
+	$settings['remove_widgets']['widgets'] = array($settings['remove_widgets']['widgets']);
 
-delete_option('piklist_wp_helpers');
+	delete_option('piklist_wp_helpers');
 
-add_option('piklist_wp_helpers', $settings);
-
-?>
+	add_option('piklist_wp_helpers', $settings);
+}
