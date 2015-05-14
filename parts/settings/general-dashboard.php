@@ -7,23 +7,6 @@ Order: 110
 
 
   piklist('field', array(
-    'type' => 'select'
-    ,'field' => 'screen_layout_columns_dashboard'
-    ,'label' => 'Columns'
-    ,'value' => 'default'
-    ,'attributes' => array(
-      'class' => 'small-text'
-    )
-    ,'choices' => array(
-      'default' => 'Default'
-      ,'1' => '1'
-      ,'2' => '2'
-      ,'3' => '3'
-      ,'4' => '4'
-    )
-  ));
-
-  piklist('field', array(
     'type' => 'group'
     ,'field' => 'remove_dashboard_widgets_new'
     ,'label' => 'Remove Dashboard Widgets'

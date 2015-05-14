@@ -24,14 +24,3 @@ Tab Order: 50
       'true' => 'Turn off automatic linking of urls in comments'
     )
   ));
-
-  piklist('field', array(
-    'type' => 'file'
-    ,'field' => 'avatar_defaults'
-    ,'label' => 'Default avatar'
-    ,'description' => 'Image should be 48px square.'
-    ,'options' => array(
-      'title' => 'Add Image'
-      ,'button' => 'Add Image'
-    )
-  ));

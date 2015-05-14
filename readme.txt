@@ -80,8 +80,6 @@ http://www.youtube.com/watch?v=ZYSUDvodWxI&hd=1
 * <a href="http://wpmu.org/wordpress-helpers-the-missing-settings-page-for-wordpress/">WPMU.org</a>
 * <a href="https://managewp.com/wordpress-settings-wordpress-helpers/"/>ManageWP.com</a>
 
-
-
 == Frequently Asked Questions ==
 
 = What does this plugin do? =
@@ -101,6 +99,9 @@ Awesome! We're always looking for new ideas. Please submit them on our <a href="
 * Install and activate WordPress Helpers like any other plugin.
 
 == Changelog ==
+
+= 1.6.2 =
+* NEW: Schedule WordPress to delete orphaned meta.
 
 = 1.6.1 =
 * FIXED: Update script.
