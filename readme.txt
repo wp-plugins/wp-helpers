@@ -14,7 +14,7 @@ Take control of WordPress. Adds over 50 more settings to your admin.
 Take control of WordPress. Adds over 50 more settings to your admin.
 
 > #### Read The Reviews
-> <a href="http://wpmu.org/wordpress-helpers-the-missing-settings-page-for-wordpress/">WPMU.org</a>
+> <a href="http://wpmu.org/wordpress-helpers-the-missing-settings-page-for-wordpress/">WPMU.org</a><br>
 > <a href="https://managewp.com/wordpress-settings-wordpress-helpers/"/>ManageWP.com</a>
 
 
