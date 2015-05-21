@@ -13,9 +13,10 @@ Take control of WordPress. Adds over 50 more settings to your admin.
 
 Take control of WordPress. Adds over 50 more settings to your admin.
 
-> #### Powered by Piklist
-> WordPress Helpers requires the Piklist framework.   
-> <a href="http://wordpress.org/extend/plugins/piklist/">You can download and install Piklist for free.</a>
+> #### Read The Reviews
+> <a href="http://wpmu.org/wordpress-helpers-the-missing-settings-page-for-wordpress/">WPMU.org</a>
+> <a href="https://managewp.com/wordpress-settings-wordpress-helpers/"/>ManageWP.com</a>
+
 
 [Watch the WordPress Helpers Demo](http://www.youtube.com/watch?v=ZYSUDvodWxI&hd=1):
 
@@ -76,9 +77,9 @@ http://www.youtube.com/watch?v=ZYSUDvodWxI&hd=1
 * Display an notice to your users in the admin or on the front of your site.
 
 
-= Read The Reviews =
-* <a href="http://wpmu.org/wordpress-helpers-the-missing-settings-page-for-wordpress/">WPMU.org</a>
-* <a href="https://managewp.com/wordpress-settings-wordpress-helpers/"/>ManageWP.com</a>
+> #### Powered by Piklist
+> WordPress Helpers requires the Piklist framework.   
+> <a href="http://wordpress.org/extend/plugins/piklist/">You can download and install Piklist for free.</a>
 
 == Frequently Asked Questions ==
 
