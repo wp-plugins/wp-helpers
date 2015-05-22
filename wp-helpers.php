@@ -3,7 +3,7 @@
 Plugin Name: WordPress Helpers
 Plugin URI: http://piklist.com
 Description: Enhanced settings for WordPress. Located under <a href="tools.php?page=piklist_wp_helpers">TOOLS > HELPERS</a>
-Version: 1.6.2
+Version: 1.6.3
 Author: Piklist
 Author URI: http://piklist.com/
 Plugin Type: Piklist
@@ -149,6 +149,12 @@ class Piklist_WordPress_Helpers
 
             case 'disable_visual_editor':
               add_filter('user_can_richedit', '__return_false', self::$filter_priority);
+            break;
+
+            case 'excerpt_wysiwyg':
+              add_action('init', array('piklist_wordpress_helpers', 'remove_post_excerpt_box'), self::$filter_priority);
+              add_filter('piklist_add_part', array('piklist_wordpress_helpers', 'replace_post_excerpt_box'), self::$filter_priority, 2); // Piklist v0.9.4.x
+              add_filter('piklist_part_add', array('piklist_wordpress_helpers', 'replace_post_excerpt_box'), self::$filter_priority, 2); // Piklist v0.9.5.x
             break;
 
             case 'hide_admin_bar':
@@ -396,6 +402,24 @@ class Piklist_WordPress_Helpers
   public static function title_format($format)
   {
     return '%s';
+  }
+
+  public static function remove_post_excerpt_box()
+  {
+    remove_post_type_support('post', 'excerpt');
+  }
+
+  public static function replace_post_excerpt_box($part_data, $folder)
+  {
+    if($folder == 'meta-boxes')
+    {
+     if(!empty($part_data['type']) && $part_data['type'] == 'piklist_wp_helpers_post')
+     {
+        $part_data['type'] = 'post';
+     }
+    }
+
+    return $part_data;
   }
   
   public static function excerpt_length($length)
