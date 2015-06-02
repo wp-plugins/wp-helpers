@@ -14,16 +14,7 @@ Order: 110
       array(
         'type' => 'checkbox'
         ,'field' => 'dashboard_widgets'
-        ,'choices' => array(
-          'dashboard_right_now' => 'Right Now'
-          ,'dashboard_recent_comments' => 'Recent Comments'
-          ,'dashboard_incoming_links' => 'Incoming Links'
-          ,'dashboard_quick_press' => 'Quick Draft'
-          ,'dashboard_browser_nag' => 'Browser Upgrade Warning'
-          ,'dashboard_recent_drafts' => 'Recent Drafts'
-          ,'dashboard_primary' => 'WordPress News'
-          ,'dashboard_plugins' => 'Plugins'
-        )
+        ,'choices' => piklist_wordpress_helpers::get_dashboard_widget_list()
         ,'columns' => 4
       )
     )
