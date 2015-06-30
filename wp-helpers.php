@@ -3,7 +3,7 @@
 Plugin Name: WordPress Helpers
 Plugin URI: http://piklist.com
 Description: Enhanced settings for WordPress. Located under <a href="tools.php?page=piklist_wp_helpers">TOOLS > HELPERS</a>
-Version: 1.7.0
+Version: 1.7.1
 Author: Piklist
 Author URI: http://piklist.com/
 Plugin Type: Piklist
@@ -308,6 +308,9 @@ class Piklist_WordPress_Helpers
 
             case 'login_image':
               add_action('login_head', array('piklist_wordpress_helpers', 'login_css'), self::$filter_priority);
+              add_filter('login_headerurl', array('piklist_wordpress_helpers', 'login_headerurl'), self::$filter_priority);
+              add_filter('login_headertitle', array('piklist_wordpress_helpers', 'login_headertitle'), self::$filter_priority);
+
             break;
 
             case 'login_background':
@@ -609,6 +612,17 @@ class Piklist_WordPress_Helpers
     </style>
 <?php
   }
+
+  public static function login_headerurl()
+  {
+    return home_url();
+  }
+
+  public static function login_headertitle()
+  {
+    return get_bloginfo('name');
+  }
+
 
   public static function login_background()
   {
@@ -986,7 +1000,7 @@ class Piklist_WordPress_Helpers
 
   public static function maintenance_mode_warning()
   {
-    self::admin_notice(sprintf(__('This site is in Maintenance Mode. %1$sDeactivate when finished%2$s', 'wp-helpers'), '<a href="' . admin_url() . 'tools.php?page=piklist_wordpress_helpers&tab=users#piklist_wordpress_helpers_maintenance_mode_0">', '</a>'), false);
+    self::admin_notice(sprintf(__('This site is in Maintenance Mode. %1$sDeactivate when finished%2$s', 'wp-helpers'), '<a href="' . admin_url() . 'tools.php?page=piklist_wp_helpers&tab=users#piklist_wordpress_helpers_maintenance_mode_0">', '</a>'), false);
   }
 
   public static function maintenance_mode_warning_toolbar($wp_admin_bar)
@@ -994,7 +1008,7 @@ class Piklist_WordPress_Helpers
     $args = array(
       'id' => 'wp-helpers-maintenance_mode_warning'
       ,'title' => __('This site is in Maintenance Mode.', 'wp-helpers')
-      ,'href' => admin_url() . 'tools.php?page=piklist_wordpress_helpers&tab=users#piklist_wordpress_helpers_maintenance_mode_0'
+      ,'href' => admin_url() . 'tools.php?page=piklist_wp_helpers&tab=users#piklist_wordpress_helpers_maintenance_mode_0'
       ,'meta'  => array( 'class' => 'my-toolbar-page' )
     );
 
