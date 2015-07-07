@@ -3,7 +3,7 @@
 Plugin Name: WordPress Helpers
 Plugin URI: http://piklist.com
 Description: Enhanced settings for WordPress. Located under <a href="tools.php?page=piklist_wp_helpers">TOOLS > HELPERS</a>
-Version: 1.7.1
+Version: 1.7.2
 Author: Piklist
 Author URI: http://piklist.com/
 Plugin Type: Piklist
@@ -184,6 +184,18 @@ class Piklist_WordPress_Helpers
 
             case 'all_options':
               add_action('admin_menu', array('piklist_wordpress_helpers', 'all_options_menu'), self::$filter_priority);
+            break;
+
+            case 'disable_emojis':
+              remove_action('wp_head', 'print_emoji_detection_script', 7);
+              remove_action('admin_print_scripts', 'print_emoji_detection_script');
+              remove_action('wp_print_styles', 'print_emoji_styles');
+              remove_action('admin_print_styles', 'print_emoji_styles');  
+              remove_filter('the_content_feed', 'wp_staticize_emoji');
+              remove_filter('comment_text_rss', 'wp_staticize_emoji');  
+              remove_filter('wp_mail', 'wp_staticize_emoji_for_email');
+              add_filter( 'tiny_mce_plugins', array('piklist_wordpress_helpers', 'disable_emojis_tinymce'), self::$filter_priority);
+              add_action('piklist_wordpress_helpers_admin_css', array('piklist_wordpress_helpers', 'hide_option_use_smilies'), self::$filter_priority);
             break;
 
             case 'make_clickable':
@@ -745,6 +757,12 @@ class Piklist_WordPress_Helpers
     }
   }
 
+  public static function hide_option_use_smilies()
+  {
+    echo 'label[for="use_smilies"]{ display: none !important }' . PHP_EOL;
+    echo 'label[for="use_smilies"] + br { display: none !important }' . PHP_EOL;
+  }
+
   public static function hide_admin_bar_profile_option()
   {
     echo '.show-admin-bar { display: none; }' . PHP_EOL;
@@ -969,6 +987,19 @@ class Piklist_WordPress_Helpers
       
       $all_options_menu = array('All','manage_options','options.php');
       array_unshift($submenu['options-general.php'], $all_options_menu);
+    }
+  }
+
+  // @credit https://wordpress.org/plugins/disable-emojis/
+  public static function disable_emojis_tinymce($plugins)
+  {
+    if (is_array($plugins))
+    {
+      return array_diff($plugins, array('wpemoji'));
+    }
+    else
+    {
+      return array();
     }
   }
 
