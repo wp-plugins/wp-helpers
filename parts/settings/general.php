@@ -20,24 +20,6 @@ $options = get_option('piklist_wp_helpers');
   ));
 
 
-  $emoji = get_option('use_smilies') ? convert_smilies(':-(') : ':-(';
-
-  piklist('field', array(
-    'type' => 'checkbox'
-    ,'field' => 'disable_emojis'
-    ,'label' => 'Disable Emojis'
-    ,'choices' => array(
-      'true' => 'Disable all Emoji support.' . '&nbsp;' . $emoji
-    )
-  ));
-
-    // Uncheck the option to use smilies on Settings > Writing
-    if($options['disable_emojis'] == true)
-    {
-      update_option('use_smilies', null);
-    }
-
-
   if ( is_multisite() && is_super_admin() )
   {
     piklist('field', array(

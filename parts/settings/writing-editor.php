@@ -9,6 +9,26 @@ Tab Order: 20
 
 global $wp_version;
 
+  $options = get_option('piklist_wp_helpers');
+
+  $emoji = get_option('use_smilies') ? convert_smilies(':-(') : ':-(';
+
+  piklist('field', array(
+    'type' => 'checkbox'
+    ,'field' => 'disable_emojis'
+    ,'label' => 'Disable Emojis'
+    ,'choices' => array(
+      'true' => 'Disable all Emoji support.' . '&nbsp;' . $emoji
+    )
+  ));
+
+    // Uncheck the option to use smilies on Settings > Writing
+    if($options['disable_emojis'] == true)
+    {
+      update_option('use_smilies', null);
+    }
+
+
   piklist('field', array(
     'type' => 'select'
     ,'field' => 'disable_visual_editor'
