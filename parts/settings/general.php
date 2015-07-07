@@ -6,11 +6,14 @@ Order: 100
 */
 
 global $wp_version;
+
+$options = get_option('piklist_wp_helpers');
   
   piklist('field', array(
     'type' => 'checkbox'
     ,'field' => 'all_options'
     ,'label' => 'Show ALL Options'
+    ,'description' => !empty($options['all_options']) ? '<a href="' . admin_url() . 'options.php"> View all options &#8594;</a>' : null
     ,'choices' => array(
       'true' => 'Expose ALL site options, under WordPress Settings tab.'
     )
