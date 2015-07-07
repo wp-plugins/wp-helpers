@@ -1,6 +1,6 @@
 === WordPress Helpers ===
 Contributors: piklist, p51labs, sbruner
-Tags: piklist, settings, admin bar, dashboard widgets, widgets, visual editor, html editor, excerpts, excerpt length, autosave, howdy, private, protected, close comments, auto linking, AIM, Yahoo IM, Jabber, Google Talk, rss feeds, feeds, maintenance, maintenance mode, under construction
+Tags: piklist, settings, admin bar, dashboard widgets, widgets, visual editor, html editor, excerpts, excerpt length, autosave, howdy, private, protected, close comments, auto linking, AIM, Yahoo IM, Jabber, Google Talk, rss feeds, feeds, maintenance, maintenance mode, under construction, emojis
 Tested up to: 4.2
 Requires at least: 3.6
 Stable tag: 1.7.2
@@ -36,6 +36,7 @@ http://www.youtube.com/watch?v=ZYSUDvodWxI&hd=1
 * Bring back Blogrolls.
 
 = Writing =
+* Fully disable Emojis
 * Set the default Post editor (Visual or HTML).
 * Enable WYSIWYG for excerpts box.
 * Set Post Editor columns.
