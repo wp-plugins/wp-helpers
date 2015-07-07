@@ -103,6 +103,8 @@ Awesome! We're always looking for new ideas. Please submit them on our <a href="
 == Changelog ==
 
 = 1.7.1 =
+Release Date: June 30, 2015
+
 * ENHANCED: Login logo now links to home page, and title is website name.
 * FIXED: Typo in Maintenance Mode links.
 
