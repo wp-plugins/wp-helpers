@@ -2,6 +2,7 @@
 /*
 Notice Type: updated
 Notice ID: wp_helpers_1_7_2
+Capability: manage_options
 */
 
 
