@@ -103,13 +103,16 @@ Awesome! We're always looking for new ideas. Please submit them on our <a href="
 
 == Changelog ==
 
-= 1.7.2.1 - July 7, 2015 =
+= 1.7.2.1 =
+Release Date: July 7, 2015
 * FIX: Admin notice error.
 
-= 1.7.2 - July 7, 2015 =
+= 1.7.2 =
+Release Date: July 7, 2015
 * NEW: Fully disable Emoji support and default option.
 
-= 1.7.1 - June 30, 2015 =
+= 1.7.1 =
+Release Date: June 30, 2015
 * ENHANCED: Login logo now links to home page, and title is website name.
 * FIXED: Typo in Maintenance Mode links.
 
