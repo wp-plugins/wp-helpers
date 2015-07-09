@@ -258,6 +258,20 @@ Release Date: June 30, 2015
 * Initial release!
 
 
+== Screenshots ==
+1. Include Admin messages for your logged in users.
+2. Show messages to your websites visitors.
+3. Easily put your website into Maintenance Mode.
+4. Create a Private website.
+5. Style your login screen.
+6. Add the visual editor to your Excerpt box.
+7. Remove widgets, or allow them to run shortcodes.
+8. Expose the hidden WordPress "All Settings" page.
+9. Add ID's to ALL List Tables, and Featured Images to your Post Type tables.
+10. Easily accessible System Information page.
+11. Screen Information for easy debugging.
+
+
 == Upgrade Notice ==
 
 = 1.2.0 =
