@@ -3,7 +3,7 @@ Contributors: piklist, p51labs, sbruner
 Tags: Piklist, Admin Bar, AIM, Autosave, Comments, Close Comments, Dashboard Widgets, Emojis, Excerpt, Excerpts, Exif, Featured Image, Feeds, Google Talk, Howdy, HTML Editor, Image, Jabber, Maintenance, Maintenance Mode, Media, Private, Protected, RSS Feeds, Settings, Under Construction, Visual Editor, Widgets, Yahoo IM
 Tested up to: 4.3
 Requires at least: 3.6
-Stable tag: 1.8
+Stable tag: 1.8.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -102,6 +102,19 @@ Awesome! We're always looking for new ideas. Please submit them on our <a href="
 * Install and activate WordPress Helpers like any other plugin.
 
 == Changelog ==
+
+= 1.8.1 =
+Release Date: July 13, 2015
+
+* FIXED: Allow deletion of Posts without a Featured Image (only when option is set.)
+
+= 1.8 =
+Release Date: July 13, 2015
+
+* NEW: Require Featured Images before publishing.
+* NEW: Set defaults when embedding your images.
+* NEW: Show all available image sizes.
+* NEW: Display image Exif data.
 
 = 1.7.2.1 =
 Release Date: July 7, 2015
