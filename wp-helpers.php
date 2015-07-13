@@ -3,7 +3,7 @@
 Plugin Name: WordPress Helpers
 Plugin URI: http://piklist.com
 Description: Enhanced settings for WordPress. Located under <a href="tools.php?page=piklist_wp_helpers">TOOLS > HELPERS</a>
-Version: 1.8
+Version: 1.8.1
 Author: Piklist
 Author URI: http://piklist.com/
 Plugin Type: Piklist
@@ -474,27 +474,29 @@ class Piklist_WordPress_Helpers
     return $part_data;
   }
 
-  // @credit http://wpsnipp.com/index.php/functions-php/require-featured-image-can-publish-post/
   public static function require_featured_image($post_id)
   {
-    $thumbnail_post_types = is_array(self::$options['require_featured_image']) ?  self::$options['require_featured_image'] : array(self::$options['require_featured_image']);
-
-    if(post_type_supports(get_post_type($post_id), 'thumbnail') && in_array(get_post_type($post_id), $thumbnail_post_types) && !has_post_thumbnail($post_id))
+    if(!isset($_GET['_wpnonce']))
     {
-      remove_action('save_post', array('piklist_wordpress_helpers', 'require_featured_image'), self::$filter_priority); // Stops infinite loop
+      $thumbnail_post_types = is_array(self::$options['require_featured_image']) ?  self::$options['require_featured_image'] : array(self::$options['require_featured_image']);
 
-      wp_update_post(array(
-        'ID' => $post_id
-        ,'post_status' => 'draft'
-      ));
+      if(post_type_supports(get_post_type($post_id), 'thumbnail') && in_array(get_post_type($post_id), $thumbnail_post_types) && !has_post_thumbnail($post_id))
+      {
+        remove_action('save_post', array('piklist_wordpress_helpers', 'require_featured_image'), self::$filter_priority); // Stops infinite loop
 
-      update_post_meta($post_id, self::$prefix . 'no_featured_image', true);
+        wp_update_post(array(
+          'ID' => $post_id
+          ,'post_status' => 'draft'
+        ));
 
-      add_action('save_post', array('piklist_wordpress_helpers', 'require_featured_image'), self::$filter_priority);
-    }
-    else
-    {
-      delete_post_meta($post_id,  self::$prefix . 'no_featured_image');
+        update_post_meta($post_id, self::$prefix . 'no_featured_image', true);
+
+        add_action('save_post', array('piklist_wordpress_helpers', 'require_featured_image'), self::$filter_priority);
+      }
+      else
+      {
+        delete_post_meta($post_id,  self::$prefix . 'no_featured_image');
+      }
     }
   }
 
