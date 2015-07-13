@@ -474,6 +474,7 @@ class Piklist_WordPress_Helpers
     return $part_data;
   }
 
+  // @credit http://wpsnipp.com/index.php/functions-php/require-featured-image-can-publish-post/
   public static function require_featured_image($post_id)
   {
     $thumbnail_post_types = is_array(self::$options['require_featured_image']) ?  self::$options['require_featured_image'] : array(self::$options['require_featured_image']);
