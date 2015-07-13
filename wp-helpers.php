@@ -3,7 +3,7 @@
 Plugin Name: WordPress Helpers
 Plugin URI: http://piklist.com
 Description: Enhanced settings for WordPress. Located under <a href="tools.php?page=piklist_wp_helpers">TOOLS > HELPERS</a>
-Version: 1.7.2.1
+Version: 1.8
 Author: Piklist
 Author URI: http://piklist.com/
 Plugin Type: Piklist
@@ -13,7 +13,7 @@ License: GPLv2
 */
 
 /*  
-  Copyright (c) 2012-2013 Piklist, LLC.
+  Copyright (c) 2012-2015 Piklist, LLC.
   All rights reserved.
 
   This software is distributed under the GNU General Public License, Version 2,
@@ -43,6 +43,8 @@ add_action('admin_init', array('piklist_wordpress_helpers', 'admin_init'), -1);
 
 class Piklist_WordPress_Helpers
 {
+  public static $prefix = '_pik_wph_';
+
   private static $options = null;
 
   public static $registered_widgets = array();
@@ -69,7 +71,7 @@ class Piklist_WordPress_Helpers
         return;
       }
       
-      add_filter('piklist_admin_pages', array('piklist_wordpress_helpers', 'admin_pages'));
+      add_filter('piklist_admin_pages', array('piklist_wordpress_helpers', 'admin_pages'));   
     }
     
     self::helpers();
@@ -109,7 +111,7 @@ class Piklist_WordPress_Helpers
   }
 
   public static function helpers() 
-  {   
+  {
     if (self::$options = get_option('piklist_wp_helpers'))
     {
       foreach (self::$options as $option => $value)
@@ -125,7 +127,7 @@ class Piklist_WordPress_Helpers
             break;
           
             case 'private_title_format':
-              add_filter('private_title_format', array('piklist_wordpress_helpers', 'title_format'), self::$filter_priority);         
+              add_filter('private_title_format', array('piklist_wordpress_helpers', 'title_format'), self::$filter_priority);  
             break;
 
             case 'protected_title_format':
@@ -159,6 +161,16 @@ class Piklist_WordPress_Helpers
               add_filter('piklist_part_add', array('piklist_wordpress_helpers', 'replace_post_excerpt_box'), self::$filter_priority, 2); // Piklist v0.9.5.x
             break;
 
+            case 'show_additional_image_sizes' :
+              add_filter('piklist_add_part', array('piklist_wordpress_helpers', 'show_additional_image_sizes'), self::$filter_priority, 2); // Piklist v0.9.4.x
+              add_filter('piklist_part_add', array('piklist_wordpress_helpers', 'show_additional_image_sizes'), self::$filter_priority, 2); // Piklist v0.9.5.x
+            break;
+
+            case 'show_exif_data' :
+              add_filter('piklist_add_part', array('piklist_wordpress_helpers', 'show_exif_data'), self::$filter_priority, 2); // Piklist v0.9.4.x
+              add_filter('piklist_part_add', array('piklist_wordpress_helpers', 'show_exif_data'), self::$filter_priority, 2); // Piklist v0.9.5.x
+            break;
+
             case 'hide_admin_bar':
               add_filter('show_admin_bar', '__return_false');
               add_action('piklist_wordpress_helpers_admin_css', array('piklist_wordpress_helpers', 'hide_admin_bar_profile_option'), self::$filter_priority);
@@ -178,7 +190,6 @@ class Piklist_WordPress_Helpers
 
             case 'show_featured_image':
               Piklist_WordPress_Helpers::$list_table_columns[] = 'show_featured_image';
-
               add_action('admin_init', array('piklist_wordpress_helpers', 'list_table_post_types'), self::$filter_priority);
             break;
 
@@ -187,6 +198,7 @@ class Piklist_WordPress_Helpers
             break;
 
             case 'disable_emojis':
+              // @credit https://wordpress.org/plugins/disable-emojis/
               remove_action('wp_head', 'print_emoji_detection_script', 7);
               remove_action('admin_print_scripts', 'print_emoji_detection_script');
               remove_action('wp_print_styles', 'print_emoji_styles');
@@ -194,7 +206,7 @@ class Piklist_WordPress_Helpers
               remove_filter('the_content_feed', 'wp_staticize_emoji');
               remove_filter('comment_text_rss', 'wp_staticize_emoji');  
               remove_filter('wp_mail', 'wp_staticize_emoji_for_email');
-              add_filter( 'tiny_mce_plugins', array('piklist_wordpress_helpers', 'disable_emojis_tinymce'), self::$filter_priority);
+              add_filter('tiny_mce_plugins', array('piklist_wordpress_helpers', 'disable_emojis_tinymce'), self::$filter_priority);
               add_action('piklist_wordpress_helpers_admin_css', array('piklist_wordpress_helpers', 'hide_option_use_smilies'), self::$filter_priority);
             break;
 
@@ -240,6 +252,7 @@ class Piklist_WordPress_Helpers
 
             case 'private_site':
               add_action('wp', array('piklist_wordpress_helpers', 'redirect_to_login'));
+              add_action('login_form', array('piklist_wordpress_helpers', 'private_login_form'));
             break;
 
             case 'redirect_to_home':
@@ -388,7 +401,9 @@ class Piklist_WordPress_Helpers
             break;
 
             case 'search_post_types':
+
               add_filter('pre_get_posts', array('piklist_wordpress_helpers', 'set_search'));          
+            
             break;
 
             case 'delay_feed':
@@ -397,6 +412,13 @@ class Piklist_WordPress_Helpers
               {
                 add_filter('posts_where', array('piklist_wordpress_helpers', 'delay_feed'), self::$filter_priority);
               }
+            
+            break;
+
+            case 'require_featured_image':
+
+              add_action('save_post', array('piklist_wordpress_helpers', 'require_featured_image'), self::$filter_priority);
+              add_action('admin_notices', array('piklist_wordpress_helpers', 'notice_admin_require_featured_image'), self::$filter_priority);
             
             break;
           }
@@ -451,7 +473,74 @@ class Piklist_WordPress_Helpers
 
     return $part_data;
   }
-  
+
+  public static function require_featured_image($post_id)
+  {
+    $thumbnail_post_types = is_array(self::$options['require_featured_image']) ?  self::$options['require_featured_image'] : array(self::$options['require_featured_image']);
+
+    if(post_type_supports(get_post_type($post_id), 'thumbnail') && in_array(get_post_type($post_id), $thumbnail_post_types) && !has_post_thumbnail($post_id))
+    {
+      remove_action('save_post', array('piklist_wordpress_helpers', 'require_featured_image'), self::$filter_priority); // Stops infinite loop
+
+      wp_update_post(array(
+        'ID' => $post_id
+        ,'post_status' => 'draft'
+      ));
+
+      update_post_meta($post_id, self::$prefix . 'no_featured_image', true);
+
+      add_action('save_post', array('piklist_wordpress_helpers', 'require_featured_image'), self::$filter_priority);
+    }
+    else
+    {
+      delete_post_meta($post_id,  self::$prefix . 'no_featured_image');
+    }
+  }
+
+  public static function notice_admin_require_featured_image()
+  {
+    global $post, $pagenow;
+
+    if($pagenow == 'post.php')
+    {
+      $no_featured_image = get_post_meta($post->ID, self::$prefix . 'no_featured_image');
+
+      if ($no_featured_image)
+      {
+        $post_type = get_post_type_object($post->post_type);
+        self::admin_notice(sprintf(__('You must assign a Featured Image before Publishing. This %1$s has been saved and set to Draft.', 'wp-helpers'), $post_type->labels->singular_name),'error');
+      }
+    }
+  }
+
+  public static function show_additional_image_sizes($part_data, $folder)
+  {
+    if($folder == 'media')
+    {
+      if((isset($part_data['part']) && $part_data['part'] == 'image-sizes.php') || (isset($part_data['name']) && $part_data['name'] == 'Image Sizes'))
+      {
+        $part_data['capability'] = null;
+        return $part_data;
+      }
+    }
+
+    return $part_data;
+  }
+
+  public static function show_exif_data($part_data, $folder)
+  {
+    if($folder == 'media')
+    {
+      if((isset($part_data['part']) && $part_data['part'] == 'image-exif.php') || (isset($part_data['name']) && $part_data['name'] == 'Exif Data'))
+      {
+        $part_data['capability'] = null;
+        return $part_data;
+      }
+    }
+
+    return $part_data;
+  }
+
   public static function excerpt_length($length)
   {
     if (is_numeric($length) && self::$options['excerpt_length_type'] == 'words')
@@ -1029,6 +1118,11 @@ class Piklist_WordPress_Helpers
     }
   }
 
+  public static function private_login_form()
+  {
+    printf(__('%1$sYou must be logged in to view this Website%2$s', 'wp-helpers'), '<p>', '</p><br/>');
+  }
+
   public static function maintenance_mode_warning()
   {
     self::admin_notice(sprintf(__('This site is in Maintenance Mode. %1$sDeactivate when finished%2$s', 'wp-helpers'), '<a href="' . admin_url() . 'tools.php?page=piklist_wp_helpers&tab=users#piklist_wordpress_helpers_maintenance_mode_0">', '</a>'), false);
@@ -1399,19 +1493,11 @@ class Piklist_WordPress_Helpers
   }
 
   public static function front_notice($message, $type = 'info')
-  { ?>
-
-    <div id="wp-helpers-notice" class="alert alert-<?php echo $type; ?>">
-
-      <span>
-
-        <?php echo $message; ?>
-
-    </span>
-        
-    </div>
-
-<?php
+  {
+    piklist('shared/front-notice', array(
+      'type' => $type
+      ,'message' => $message
+    ));
   }
 
   public static function login_message($message)

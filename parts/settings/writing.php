@@ -3,7 +3,7 @@
 Title: Other
 Setting: piklist_wp_helpers
 Tab: Writing
-Order: 220
+Order: 230
 Tab Order: 20
 */
 

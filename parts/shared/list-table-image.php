@@ -2,8 +2,7 @@
 
 	<a href="<?php echo $image_attributes[0];?>" alt="<?php echo $title;?>" title="<?php echo $title;?>">
 
-		<img src="<?php echo $image_attributes[0]; ?>" width="133" height="100">
-
+		<img src="<?php echo $image_attributes[0]; ?>" style="max-width: 133px;" />
 	</a>
 
 <?php else : ?>

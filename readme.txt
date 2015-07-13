@@ -1,9 +1,9 @@
 === WordPress Helpers ===
 Contributors: piklist, p51labs, sbruner
-Tags: piklist, settings, admin bar, dashboard widgets, widgets, visual editor, html editor, excerpts, excerpt length, autosave, howdy, private, protected, close comments, auto linking, AIM, Yahoo IM, Jabber, Google Talk, rss feeds, feeds, maintenance, maintenance mode, under construction, emojis
-Tested up to: 4.2
+Tags: Piklist, Admin Bar, AIM, Autosave, Comments, Close Comments, Dashboard Widgets, Emojis, Excerpt, Excerpts, Exif, Featured Image, Feeds, Google Talk, Howdy, HTML Editor, Image, Jabber, Maintenance, Maintenance Mode, Media, Private, Protected, RSS Feeds, Settings, Under Construction, Visual Editor, Widgets, Yahoo IM
+Tested up to: 4.3
 Requires at least: 3.6
-Stable tag: 1.7.2.1
+Stable tag: 1.8
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -256,7 +256,6 @@ Release Date: June 30, 2015
 
 = 1.0.0 =
 * Initial release!
-
 
 == Screenshots ==
 1. Include Admin messages for your logged in users.
