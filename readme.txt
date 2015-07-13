@@ -282,7 +282,9 @@ Release Date: June 30, 2015
 9. Add ID's to ALL List Tables, and Featured Images to your Post Type tables.
 10. Easily accessible System Information page.
 11. Screen Information for easy debugging.
-12. Over 50 settings to customize your website!
+12. Show all available image sizes.
+13. Require Featured Images before publishing.
+14. Over 50 settings to customize your website!
 
 
 == Upgrade Notice ==
