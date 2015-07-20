@@ -3,7 +3,7 @@ Contributors: piklist, p51labs, sbruner
 Tags: Piklist, Admin Bar, AIM, Autosave, Comments, Close Comments, Dashboard Widgets, Emojis, Excerpt, Excerpts, Exif, Featured Image, Feeds, Google Talk, Howdy, HTML Editor, Image, Jabber, Maintenance, Maintenance Mode, Media, Private, Protected, RSS Feeds, Settings, Under Construction, Visual Editor, Widgets, Yahoo IM
 Tested up to: 4.3
 Requires at least: 3.6
-Stable tag: 1.8.1
+Stable tag: 1.8.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -102,6 +102,13 @@ Awesome! We're always looking for new ideas. Please submit them on our <a href="
 * Install and activate WordPress Helpers like any other plugin.
 
 == Changelog ==
+
+= 1.8.2 =
+Release Date: July 20, 2015
+
+* FIXED: Notices for Image sizes.
+* FIXED: Login page image works without getimagesize() @props poxtron
+* FIXED: Notices on new install and Emoji not set.
 
 = 1.8.1 =
 Release Date: July 13, 2015

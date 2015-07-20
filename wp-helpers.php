@@ -700,21 +700,14 @@ class Piklist_WordPress_Helpers
   public static function login_css()
   {
     $image_id = is_array(self::$options['login_image']) ? self::$options['login_image'] : array(self::$options['login_image']);
-    shuffle($image_id);
-    $image_url = wp_get_attachment_url($image_id[0]);
 
-    $size = getimagesize($image_url);
+    shuffle($image_id);
+
+    $image = wp_get_attachment_image_src($image_id[0],'full');
     
-?>
-    <!-- WP Helpers -->   
-    <style type="text/css">  
-      .login h1 a {
-        background: url(<?php echo esc_url_raw($image_url); ?>) no-repeat top center;
-        width: <?php echo $size[0]; ?>px;
-        height: <?php echo $size[1]; ?>px;
-      }
-    </style>
-<?php
+    piklist('shared/login-css', array(
+      'image' => $image
+    ));
   }
 
   public static function login_headerurl()

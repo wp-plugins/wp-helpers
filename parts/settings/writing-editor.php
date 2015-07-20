@@ -23,7 +23,7 @@ global $wp_version;
   ));
 
     // Uncheck the option to use smilies on Settings > Writing
-    if($options['disable_emojis'] == true)
+    if(!empty($options['disable_emojis']) && $options['disable_emojis'] == true)
     {
       update_option('use_smilies', null);
     }

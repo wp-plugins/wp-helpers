@@ -8,31 +8,34 @@ Order: 5
 */
 ?>
 
-
 <?php $meta = wp_get_attachment_metadata(); ?>
 
-<?php $exif_data = $meta['image_meta']; ?>
+<?php if($meta) : ?>
 
-<?php if($exif_data) : ?>
+	<?php $exif_data = $meta['image_meta']; ?>
 
-	<ul>
+	<?php if($exif_data) : ?>
 
-	<?php foreach ($exif_data as $exif => $value) : ?>
+		<ul>
 
-		<li>
+		<?php foreach ($exif_data as $exif => $value) : ?>
 
-			<strong>
+			<li>
 
-				<?php echo ucwords(str_replace('_', ' ', $exif)); ?>
+				<strong>
 
-			</strong>
+					<?php echo ucwords(str_replace('_', ' ', $exif)); ?>
 
-			<?php echo ': ' . ucwords(str_replace('_', ' ', $value)); ?>
+				</strong>
 
-		</li>
+				<?php echo ': ' . ucwords(str_replace('_', ' ', $value)); ?>
 
-	<?php endforeach; ?>
+			</li>
 
-	</ul>
+		<?php endforeach; ?>
+
+		</ul>
+
+	<?php endif; ?>
 
 <?php endif;
